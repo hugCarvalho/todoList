@@ -1,0 +1,28 @@
+.container__todos {
+  background-color: wheat;
+  padding: 6px;
+
+  h3 {
+    text-align: center;
+  }
+}
+
+.options-top,
+.options-bottom {
+  display: flex;
+  padding: 6px 0;
+  background-color: yellowgreen;
+}
+
+.mark-todos {
+  padding: 2px;
+  cursor: pointer;
+}
+
+.container-todos {
+  padding: 0 8px;
+}
+
+.options-bottom {
+  justify-content: space-between;
+}

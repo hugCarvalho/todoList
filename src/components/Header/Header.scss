@@ -1,0 +1,11 @@
+@import "../../index.scss";
+
+header {
+  background-color: $pBlue;
+  padding: 12px;
+  text-align: center;
+
+  h1 {
+    color: $pWhite;
+  }
+}
