@@ -28,7 +28,7 @@ const Input = React.forwardRef(
           };
     const showWarning = () =>
       //text !== "" ? { borderColor: "green" } : { borderColor: "red" };
-      text ? "valid" : "invalid";
+      text.trim() ? "valid" : "invalid";
     return (
       <>
         <div className="container-inputs">

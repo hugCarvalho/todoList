@@ -40,6 +40,7 @@ export default class FormStatefull extends Component {
       searchField
     } = this.state;
     const data = JSON.stringify(items);
+
     localStorage.setItem("myData", data);
     console.log(
       "UPDATE",
@@ -70,10 +71,10 @@ export default class FormStatefull extends Component {
     const { text, items } = this.state;
     const newItem = {
       id: uuid(),
-      title: text,
+      title: text[0].toUpperCase().concat(text.substring(1)),
       completed: false
     };
-    if (!text) {
+    if (!text.trim()) {
       return alert("Please give your todo a title or description ");
     }
     this.setState({
@@ -108,7 +109,7 @@ export default class FormStatefull extends Component {
     }
     if (
       prompt(
-        "WARNING! You are about to delete ALL your todos. Are you sure?"
+        "WARNING! You are about to delete ALL your todos. This action is irreversible. Are you sure?"
       ) !== null
     ) {
       return this.setState(() => ({ items: [] }));
@@ -127,15 +128,14 @@ export default class FormStatefull extends Component {
       })
     });
   };
+
   edit = id => {
     const item = this.state.items.filter(item => item.id === id);
     this.setState({
       items: this.state.items.filter(item => item.id !== id),
       text: item[0].title
     });
-    this.setState(() => ({
-      editing: !this.state.editing
-    }));
+    this.setState(() => ({ editing: !this.state.editing }));
     this.focusMe();
   };
 
@@ -145,14 +145,7 @@ export default class FormStatefull extends Component {
     });
 
   render() {
-    const {
-      text,
-      items,
-      showAll,
-      toggleAll,
-      searching,
-      searchField
-    } = this.state;
+    const { text, items, showAll, toggleAll, searchField } = this.state;
     //RENDER!
     console.log("render");
     const list = items
