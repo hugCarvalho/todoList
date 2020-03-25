@@ -1,3 +1,14 @@
+button {
+  padding: 1px 4px;
+  cursor: pointer;
+}
+
+button:focus {
+  color: pink;
+  opacity: 1;
+  outline: none;
+}
+
 /* 
 
 .App-logo {

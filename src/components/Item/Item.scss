@@ -1,13 +1,68 @@
 .todo-item {
+  background-color: rgb(34, 34, 29);
+  // background-color: rgb(204, 204, 11);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 5px;
+  padding: 10px 6px;
+  border-radius: 6px;
+  border-bottom: 4px solid rgb(71, 77, 78);
+  margin-bottom: 8px;
+  color: #cbdbe0;
 }
 
-.wrapper__title-edit {
-  width: 100%;
+.wrapper__checkbox-title {
+  //background-color: white;
+  flex: 1;
   display: flex;
   justify-content: space-between;
-  padding: 0 4px;
+  padding-right: 8px;
+
+  label {
+    // background-color: lightseagreen;
+    display: flex;
+    align-items: center;
+    :hover {
+      cursor: pointer;
+    }
+  }
+  span {
+    //background-color: pink;
+    padding-left: 8px;
+    word-break: break-all;
+  }
 }
+
+.wrapper__edit-delete {
+  button {
+    background-color: transparent;
+    //color: red;
+    border: none;
+    min-height: 10px;
+  }
+  .btn-edit {
+    margin-right: 8px;
+    color: #9acd32;
+    opacity: 0.6;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
+  .btn-delete {
+    color: rgb(94, 91, 91);
+    color: rgba(233, 117, 117, 0.548);
+    &:hover,
+    &:focus {
+      color: rgb(204, 17, 17);
+    }
+  }
+}
+
+.fas {
+  border: none;
+}
+
+//rgb(48, 47, 47);
+//rgb(71, 77, 78);
+//128, 128, 128);

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Item from "../Item/Item";
+import Item from "../components/Item/Item";
 import { v4 as uuid } from "uuid";
-import Inputs from "../Inputs/Inputs";
-import Output from "../Output/Output";
+import Inputs from "../components/Inputs/Inputs";
+import Output from "../components/Output/Output";
 
 //2 localstorages
 // loading
@@ -21,14 +21,10 @@ export default class FormStatefull extends Component {
   };
   componentDidMount() {
     console.log("MOUNT");
-
-    this.setState({
-      items: JSON.parse(localStorage.getItem("myData"))
-    });
+    this.setState({ items: JSON.parse(localStorage.getItem("myData")) });
   }
 
   edit = id => {
-    console.log(id);
     const item = this.state.items.filter(item => item.id === id);
     this.setState({
       items: this.state.items.filter(item => item.id !== id),
@@ -49,6 +45,7 @@ export default class FormStatefull extends Component {
       searchField
     } = this.state;
     const data = JSON.stringify(items);
+    localStorage.setItem("myData", data);
     console.log(
       "UPDATE",
       text,
@@ -60,10 +57,8 @@ export default class FormStatefull extends Component {
       searching,
       searchField.length
     );
-    localStorage.setItem("myData", data);
   }
   textHandler = e => {
-    const { text } = this.state;
     const name = e.target.name;
     const value = e.target.value;
     this.setState(() => ({
@@ -79,6 +74,9 @@ export default class FormStatefull extends Component {
       completed: false
     };
 
+    if (!text) {
+      return alert("Please give your todo a title or description ");
+    }
     this.setState({
       items: [...items, newItem],
       text: "",
@@ -86,6 +84,7 @@ export default class FormStatefull extends Component {
     });
     console.log("ADD");
   };
+  searchItems = e => this.setState({ [e.target.name]: e.target.value });
   toggle = id => {
     const { items } = this.state;
     this.setState({
@@ -106,31 +105,27 @@ export default class FormStatefull extends Component {
         return item;
       })
     });
-    this.setState(() => ({
-      toggleAll: !toggleAll
-    }));
+    this.setState(() => ({ toggleAll: !toggleAll }));
+  };
+  remove = id =>
+    this.setState({ items: this.state.items.filter(item => item.id !== id) });
+  hide = () => this.setState(() => ({ showAll: !this.state.showAll }));
+  removeAll = () => {
+    const { items } = this.state;
+    if (!items.length) {
+      return alert("List is already empty. Try add some todos cowboy...");
+    }
+
+    if (
+      prompt(
+        "WARNING! You are about to delete ALL your todos. Are you sure?"
+      ) !== null
+    ) {
+      return this.setState(() => ({ items: [] }));
+    }
+    return;
   };
 
-  hide = () => {
-    const { showAll } = this.state;
-    this.setState(() => ({
-      showAll: !showAll
-    }));
-  };
-  remove = id => {
-    const { items } = this.state;
-    this.setState({
-      items: items.filter(item => item.id !== id)
-    });
-  };
-  searchItems = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-  removeAll = () => {
-    this.setState(() => ({
-      items: []
-    }));
-  };
   render() {
     const {
       text,
@@ -140,8 +135,8 @@ export default class FormStatefull extends Component {
       searching,
       searchField
     } = this.state;
-    console.log("RENDER!!!!");
     //RENDER!
+    console.log("render");
     const list = items
       .map(item => (
         <Item
@@ -157,7 +152,7 @@ export default class FormStatefull extends Component {
     const filteredList = list.filter(item => {
       return item.props.title.includes(searchField);
     });
-    console.log(filteredList);
+    //console.log(filteredList);
     return (
       <React.Fragment>
         <Inputs

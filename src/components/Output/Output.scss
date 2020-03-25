@@ -1,28 +1,73 @@
 .container__todos {
-  background-color: wheat;
+  //background-color: rgb(48, 47, 47);
   padding: 6px;
 
   h3 {
     text-align: center;
   }
+  button {
+    border: none;
+    background-color: transparent;
+    color: #c3ccb7;
+    border: none;
+    opacity: 0.7;
+  }
 }
 
-.options-top,
-.options-bottom {
+.options-top {
+  //background-color: rgb(29, 29, 27);
   display: flex;
-  padding: 6px 0;
-  background-color: yellowgreen;
-}
+  justify-content: space-between;
+  padding: 4px 3px;
+  margin-bottom: 8px;
+  background-color: rgb(42, 41, 41);
+  border-radius: 3px;
 
-.mark-todos {
-  padding: 2px;
-  cursor: pointer;
+  //background-color: yellowgreen;
 }
 
 .container-todos {
-  padding: 0 8px;
+  //padding: 0 8px;
 }
 
 .options-bottom {
   justify-content: space-between;
+}
+
+.btn__toggle-completed {
+  padding: 2px;
+  color: rgb(121, 129, 104);
+  border-radius: 2px;
+  background-color: rgb(42, 41, 41);
+  background-color: white;
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+button.btn__show-hide-completed {
+  color: rgb(253, 241, 71);
+  opacity: 0.5;
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+button.delete {
+  color: rgb(143, 69, 69);
+  &:hover,
+  &:focus {
+    color: red;
+  }
+}
+
+.fas,
+.far {
+  font-size: 1.1rem;
+}
+
+.fa-square {
+  color: white;
 }
