@@ -34,7 +34,7 @@ export default function output({
             </span>
           ) : (
             <span title="show completed">
-              <i class="far fa-eye"></i> completed
+              <i className="far fa-eye"></i> completed
             </span>
           )}
         </button>

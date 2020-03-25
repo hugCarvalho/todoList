@@ -16,24 +16,19 @@ export default class FormStatefull extends Component {
     showAll: true,
     toggleAll: true,
     editing: false,
-    todoB: false
+    todoB: false,
     //searching: true
+    inputRef: React.createRef()
   };
+
   componentDidMount() {
     console.log("MOUNT");
-    this.setState({ items: JSON.parse(localStorage.getItem("myData")) });
-  }
-
-  edit = id => {
-    const item = this.state.items.filter(item => item.id === id);
+    this.focusMe();
     this.setState({
-      items: this.state.items.filter(item => item.id !== id),
-      text: item[0].title
+      items: JSON.parse(localStorage.getItem("myData"))
     });
-    this.setState(() => ({
-      editing: !this.state.editing
-    }));
-  };
+  }
+  //
 
   componentDidUpdate() {
     const {
@@ -58,6 +53,10 @@ export default class FormStatefull extends Component {
       searchField.length
     );
   }
+
+  //Affects ADD searchbar
+  focusMe = () => this.state.inputRef.current.focus();
+
   textHandler = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -65,6 +64,7 @@ export default class FormStatefull extends Component {
       [name]: value
     }));
   };
+
   add = e => {
     e.preventDefault();
     const { text, items } = this.state;
@@ -73,7 +73,6 @@ export default class FormStatefull extends Component {
       title: text,
       completed: false
     };
-
     if (!text) {
       return alert("Please give your todo a title or description ");
     }
@@ -84,18 +83,10 @@ export default class FormStatefull extends Component {
     });
     console.log("ADD");
   };
+
+  //Afects SEARCH BAR
   searchItems = e => this.setState({ [e.target.name]: e.target.value });
-  toggle = id => {
-    const { items } = this.state;
-    this.setState({
-      items: items.map(item => {
-        if (item.id === id) {
-          item.completed = !item.completed;
-        }
-        return item;
-      })
-    });
-  };
+  //Afects ITEMS MENU
   toggleAll = () => {
     const { items, toggleAll } = this.state;
     console.log(toggleAll);
@@ -107,15 +98,14 @@ export default class FormStatefull extends Component {
     });
     this.setState(() => ({ toggleAll: !toggleAll }));
   };
-  remove = id =>
-    this.setState({ items: this.state.items.filter(item => item.id !== id) });
+
   hide = () => this.setState(() => ({ showAll: !this.state.showAll }));
+
   removeAll = () => {
     const { items } = this.state;
     if (!items.length) {
       return alert("List is already empty. Try add some todos cowboy...");
     }
-
     if (
       prompt(
         "WARNING! You are about to delete ALL your todos. Are you sure?"
@@ -125,6 +115,34 @@ export default class FormStatefull extends Component {
     }
     return;
   };
+  //Afects ITEMS
+  toggle = id => {
+    const { items } = this.state;
+    this.setState({
+      items: items.map(item => {
+        if (item.id === id) {
+          item.completed = !item.completed;
+        }
+        return item;
+      })
+    });
+  };
+  edit = id => {
+    const item = this.state.items.filter(item => item.id === id);
+    this.setState({
+      items: this.state.items.filter(item => item.id !== id),
+      text: item[0].title
+    });
+    this.setState(() => ({
+      editing: !this.state.editing
+    }));
+    this.focusMe();
+  };
+
+  remove = id =>
+    this.setState({
+      items: this.state.items.filter(item => item.id !== id)
+    });
 
   render() {
     const {
@@ -161,6 +179,7 @@ export default class FormStatefull extends Component {
           add={this.add}
           text={text}
           editing={this.state.editing}
+          ref={this.state.inputRef}
         />
         <Output
           list={filteredList}

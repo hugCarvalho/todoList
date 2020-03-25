@@ -9,6 +9,9 @@ export default function Item({ remove, title, toggle, completed, edit }) {
           textDecoration: "line-through"
         }
       : null;
+  const test = () => {
+    console.log("worked");
+  };
 
   return (
     <li className="todo-item">
