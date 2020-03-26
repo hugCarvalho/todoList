@@ -1,3 +1,5 @@
+@import "../../index.scss";
+
 .container__todos {
   //background-color: rgb(48, 47, 47);
   padding: 6px;
@@ -8,6 +10,11 @@
     color: #c3ccb7;
     border: none;
     opacity: 0.7;
+  }
+  p {
+    margin-top: 25vh;
+    font-size: 2.5rem;
+    color: #b0b4aa;
   }
 }
 
@@ -49,10 +56,10 @@ button.btn__show-hide-completed {
 }
 
 button.delete {
-  color: rgb(143, 69, 69);
+  color: $dPink;
   &:hover,
   &:focus {
-    color: red;
+    color: $lRed;
   }
 }
 
