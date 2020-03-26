@@ -3,6 +3,8 @@ import Item from "../components/Item/Item";
 import { v4 as uuid } from "uuid";
 import Inputs from "../components/Inputs/Inputs";
 import Output from "../components/Output/Output";
+import TestModal from "../TestModal";
+import Modal from "react-modal";
 
 //2 localstorages
 // loading
@@ -18,17 +20,16 @@ export default class FormStatefull extends Component {
     editing: false,
     todoB: false,
     //searching: true
-    inputRef: React.createRef()
+    inputRef: React.createRef(),
+    modalIsOpen: false
   };
 
   componentDidMount() {
-    console.log("MOUNT");
     this.focusMe();
     this.setState({
       items: JSON.parse(localStorage.getItem("myData"))
     });
   }
-  //
 
   componentDidUpdate() {
     const {
@@ -59,7 +60,8 @@ export default class FormStatefull extends Component {
   focusMe = () => this.state.inputRef.current.focus();
 
   textHandler = e => {
-    const name = e.target.name;
+    console.log("texthandler");
+    const name = e.target.name.toLowerCase();
     const value = e.target.value;
     this.setState(() => ({
       [name]: value
@@ -69,14 +71,18 @@ export default class FormStatefull extends Component {
   add = e => {
     e.preventDefault();
     const { text, items } = this.state;
-    const newItem = {
-      id: uuid(),
-      title: text[0].toUpperCase().concat(text.substring(1)),
-      completed: false
-    };
+    const validText = text.trim();
+
     if (!text.trim()) {
       return alert("Please give your todo a title or description ");
     }
+    const newItem = {
+      id: uuid(),
+      title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
+
+      completed: false
+    };
+
     this.setState({
       items: [...items, newItem],
       text: "",
@@ -85,9 +91,16 @@ export default class FormStatefull extends Component {
     console.log("ADD");
   };
 
-  //Afects SEARCH BAR
-  searchItems = e => this.setState({ [e.target.name]: e.target.value });
-  //Afects ITEMS MENU
+  //SEARCH BAR
+  searchItems = e => {
+    console.log(e.target.name);
+    console.log(e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  //ITEMS MENU
   toggleAll = () => {
     const { items, toggleAll } = this.state;
     console.log(toggleAll);
@@ -102,20 +115,6 @@ export default class FormStatefull extends Component {
 
   hide = () => this.setState(() => ({ showAll: !this.state.showAll }));
 
-  removeAll = () => {
-    const { items } = this.state;
-    if (!items.length) {
-      return alert("List is already empty. Try add some todos cowboy...");
-    }
-    if (
-      prompt(
-        "WARNING! You are about to delete ALL your todos. This action is irreversible. Are you sure?"
-      ) !== null
-    ) {
-      return this.setState(() => ({ items: [] }));
-    }
-    return;
-  };
   //Afects ITEMS
   toggle = id => {
     const { items } = this.state;
@@ -130,7 +129,11 @@ export default class FormStatefull extends Component {
   };
 
   edit = id => {
+    if (this.state.editing) {
+      return;
+    }
     const item = this.state.items.filter(item => item.id === id);
+
     this.setState({
       items: this.state.items.filter(item => item.id !== id),
       text: item[0].title
@@ -144,10 +147,29 @@ export default class FormStatefull extends Component {
       items: this.state.items.filter(item => item.id !== id)
     });
 
+  removeAll = () => {
+    const { items } = this.state;
+    this.setState(() => ({ modalIsOpen: true }));
+
+    console.log(this.state.modalIsOpen);
+    if (!items.length) {
+      console.log("2");
+      return "List is already empty. Try add some todos cowboy...";
+    }
+    if (
+      prompt(
+        "WARNING! You are about to delete ALL your todos. This action is irreversible. Are you sure?"
+      ) !== null
+    ) {
+      return this.setState(() => ({ items: [] }));
+    }
+    return;
+  };
+
   render() {
     const { text, items, showAll, toggleAll, searchField } = this.state;
     //RENDER!
-    console.log("render");
+    // console.log("render");
     const list = items
       .map(item => (
         <Item
@@ -161,11 +183,15 @@ export default class FormStatefull extends Component {
       ))
       .sort((a, b) => (a.props.completed < b.props.completed ? -1 : 1));
     const filteredList = list.filter(item => {
-      return item.props.title.includes(searchField);
+      return item.props.title.toLowerCase().includes(searchField.toLowerCase());
     });
     //console.log(filteredList);
     return (
       <React.Fragment>
+        {/* <TestModal
+          isOpen={this.state.modalIsOpen}
+        /> */}
+
         <Inputs
           searchItems={this.searchItems}
           textValue={this.textHandler}

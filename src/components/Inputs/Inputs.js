@@ -33,6 +33,7 @@ const Input = React.forwardRef(
       <>
         <div className="container-inputs">
           <form onSubmit={add}>
+            {/* Add bar */}
             <div className="wrapper__add-todo">
               <input
                 type="search"
@@ -53,7 +54,7 @@ const Input = React.forwardRef(
                 {editing ? "Edit" : "Add"}
               </button>
             </div>
-
+            {/* Search bar */}
             <div className="wrapper__search-todo">
               <i className="fas fa-search"></i>
               <input

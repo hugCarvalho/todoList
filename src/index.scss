@@ -5,12 +5,17 @@
   list-style: none;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   background-color: rgb(48, 47, 47);
+  font-size: 1.7rem;
 }
 
 $pBlack: #222;

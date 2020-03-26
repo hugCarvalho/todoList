@@ -2,7 +2,22 @@
   //background-color: rgb(172, 8, 8);
   //border-bottom: 2px solid gray;
   box-shadow: 0px 5px 7px 0px rgba(0, 0, 0, 0.39);
-  margin-bottom: 2px;
+  margin-bottom: 5px;
+  font-size: 1.3rem;
+}
+
+input.search-todo,
+input.add-todo,
+.btn__add-todo,
+.fa-search {
+  height: 1.9rem;
+  color: #2a2828;
+}
+
+input.add-todo,
+.btn__add-todo {
+  margin-top: 20px;
+  outline: none;
 }
 
 .wrapper__add-todo {
@@ -10,20 +25,11 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-bottom: 16px;
-  //ontest
-  //padding-left: 16px;
-
-  input.add-todo,
-  .btn__add-todo {
-    margin-top: 30px;
-    height: 1.8rem;
-    outline: none;
-  }
+  padding-bottom: 6px;
 
   input.add-todo {
     background-color: rgb(204, 207, 207); //check
-    width: 70%;
+    width: 55%;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     padding-left: 0.4rem; //padding 0.4
@@ -31,6 +37,9 @@
     transition: all 0.5s;
     //testing
     border: 1px inset #cccfcf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:focus {
       outline: none;
@@ -52,13 +61,14 @@
     border-bottom-right-radius: 6px;
     border: 1px solid yellowgreen;
     border-left: none;
-
     text-transform: uppercase;
-    padding: 4px 12px;
+    padding: 4px 6px;
     opacity: 0.7;
     font-weight: 800;
     color: yellowgreen;
     letter-spacing: 0.6px;
+    line-height: 0.9rem;
+    display: flex;
   }
   button:hover {
     cursor: pointer;
@@ -68,38 +78,35 @@
     opacity: 1;
   }
 }
+
 //Search input
 .wrapper__search-todo {
   //background-color: rgb(64, 110, 141);
   position: relative;
-  height: 3.8rem;
+  height: 6.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
   input.search-todo,
   .fa-search {
-    height: 1.6rem;
     background-color: #cccfcf;
   }
-
+  //SEARCH BAR
   input.search-todo {
-    width: 60%;
-
-    background-color: #cccfcf;
-
+    width: 35%;
     //border: none;
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
     border-left: none;
     padding-left: 0.4rem;
-    font-size: inherit;
-    transition: all 0.7s;
+    transition: all 0.5s;
     border-color: white;
+    font-size: inherit;
 
     &:focus {
       outline: none;
-      width: 80%;
+      width: 50%;
       background-color: rgb(236, 242, 243);
       box-shadow: 0px 5px 5px rgb(83, 83, 83);
     }
@@ -113,6 +120,5 @@
     border-right: none;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
-    font-size: 1rem;
   }
 }
