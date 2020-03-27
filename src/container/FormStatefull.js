@@ -5,6 +5,7 @@ import Inputs from "../components/Inputs/Inputs";
 import Output from "../components/Output/Output";
 import TestModal from "../TestModal";
 import Modal from "react-modal";
+import BtnHideCompleted from "../components/BtnHideCompleted/BtnHideCompleted";
 
 //2 localstorages
 // loading

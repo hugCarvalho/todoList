@@ -1,3 +1,5 @@
+@import "../../index.scss";
+
 .container-inputs {
   //background-color: rgb(172, 8, 8);
   //border-bottom: 2px solid gray;
@@ -11,7 +13,7 @@ input.add-todo,
 .btn__add-todo,
 .fa-search {
   height: 1.9rem;
-  color: #2a2828;
+  color: $dGray;
 }
 
 input.add-todo,
@@ -28,7 +30,7 @@ input.add-todo,
   padding-bottom: 6px;
 
   input.add-todo {
-    background-color: rgb(204, 207, 207); //check
+    background-color: $lGray;
     width: 55%;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
@@ -36,36 +38,37 @@ input.add-todo,
     font-size: inherit;
     transition: all 0.5s;
     //testing
-    border: 1px inset #cccfcf;
+    border: 1px inset $pGray;
+    border: 1px inset $pWhite;
     display: flex;
     justify-content: center;
     align-items: center;
 
     &:focus {
       outline: none;
-      background-color: rgb(236, 242, 243);
-      box-shadow: 0px 5px 5px rgb(83, 83, 83);
+      background-color: $darkerWhite;
+      box-shadow: 0px 5px 5px $mGray;
     }
   }
   .invalid:focus {
-    border: 1px solid rgb(179, 26, 26);
+    border: 1px solid $dRed;
     border-right: none;
   }
   .valid:focus {
-    border: 1px solid yellowgreen;
+    border: 1px solid $pGreen;
     border-right: none;
   }
   button {
     background-color: rgb(0, 0, 0);
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-    border: 1px solid yellowgreen;
+    border: 1px solid $pGreen;
     border-left: none;
     text-transform: uppercase;
     padding: 4px 6px;
     opacity: 0.7;
-    font-weight: 800;
-    color: yellowgreen;
+    font-weight: 500;
+    color: $pGreen;
     letter-spacing: 0.6px;
     line-height: 0.9rem;
     display: flex;
@@ -90,7 +93,7 @@ input.add-todo,
 
   input.search-todo,
   .fa-search {
-    background-color: #cccfcf;
+    background-color: $lGray;
   }
   //SEARCH BAR
   input.search-todo {
@@ -101,22 +104,23 @@ input.add-todo,
     border-left: none;
     padding-left: 0.4rem;
     transition: all 0.5s;
-    border-color: white;
+    border-color: $pWhite;
     font-size: inherit;
 
     &:focus {
       outline: none;
       width: 50%;
-      background-color: rgb(236, 242, 243);
-      box-shadow: 0px 5px 5px rgb(83, 83, 83);
+      background-color: $darkerWhite;
+      box-shadow: 0px 5px 5px $mGray;
     }
   }
   .fa-search {
     display: flex;
-    color: gray;
+    color: #808080;
+    color: $mGray; // DECISION
     padding: 0 4px;
     line-height: 1.6rem;
-    border: 2px inset rgb(255, 255, 255);
+    border: 2px inset $pWhite;
     border-right: none;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;

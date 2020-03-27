@@ -1,5 +1,6 @@
 import React from "react";
 import "./Output.scss";
+import BtnHideCompleted from "../BtnHideCompleted/BtnHideCompleted";
 
 export default function output({
   list,
@@ -40,6 +41,7 @@ export default function output({
             </span>
           )}
         </button>
+        <BtnHideCompleted onClick={hide}>{showAll}</BtnHideCompleted>
         {/* Delete all */}
         <button
           className="delete"
