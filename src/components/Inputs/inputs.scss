@@ -47,7 +47,7 @@ input.add-todo,
     &:focus {
       outline: none;
       background-color: $darkerWhite;
-      box-shadow: 0px 5px 5px $mGray;
+      box-shadow: 0px 1px 10px 1px $pWhite;
     }
   }
   .invalid:focus {
@@ -111,7 +111,7 @@ input.add-todo,
       outline: none;
       width: 50%;
       background-color: $darkerWhite;
-      box-shadow: 0px 5px 5px $mGray;
+      box-shadow: 0px 0px 5px $pWhite;
     }
   }
   .fa-search {

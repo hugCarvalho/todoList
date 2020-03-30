@@ -3,13 +3,7 @@ import Item from "../components/Item/Item";
 import { v4 as uuid } from "uuid";
 import Inputs from "../components/Inputs/Inputs";
 import Output from "../components/Output/Output";
-import TestModal from "../TestModal";
-import Modal from "react-modal";
-import BtnHideCompleted from "../components/BtnHideCompleted/BtnHideCompleted";
-
-//2 localstorages
-// loading
-// saving
+import ShowModal from "../components/Modal/ShowModal";
 
 export default class FormStatefull extends Component {
   state = {
@@ -22,7 +16,7 @@ export default class FormStatefull extends Component {
     todoB: false,
     //searching: true
     inputRef: React.createRef(),
-    modalIsOpen: false
+    modalIsOpen: true
   };
 
   componentDidMount() {
@@ -57,9 +51,8 @@ export default class FormStatefull extends Component {
     );
   }
 
-  //Affects ADD searchbar
+  //ADD searchbar
   focusMe = () => this.state.inputRef.current.focus();
-
   textHandler = e => {
     console.log("texthandler");
     const name = e.target.name.toLowerCase();
@@ -68,19 +61,17 @@ export default class FormStatefull extends Component {
       [name]: value
     }));
   };
-
   add = e => {
     e.preventDefault();
     const { text, items } = this.state;
     const validText = text.trim();
 
     if (!text.trim()) {
-      return alert("Please give your todo a title or description ");
+      return;
     }
     const newItem = {
       id: uuid(),
       title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
-
       completed: false
     };
 
@@ -128,7 +119,7 @@ export default class FormStatefull extends Component {
       })
     });
   };
-
+  //Edit
   edit = id => {
     if (this.state.editing) {
       return;
@@ -149,24 +140,38 @@ export default class FormStatefull extends Component {
     });
 
   removeAll = () => {
-    const { items } = this.state;
-    this.setState(() => ({ modalIsOpen: true }));
+    //const { items } = this.state;
+    // this.setState(() => ({ modalIsOpen: true }));
 
-    console.log(this.state.modalIsOpen);
-    if (!items.length) {
-      console.log("2");
-      return "List is already empty. Try add some todos cowboy...";
-    }
-    if (
-      prompt(
-        "WARNING! You are about to delete ALL your todos. This action is irreversible. Are you sure?"
-      ) !== null
-    ) {
-      return this.setState(() => ({ items: [] }));
-    }
-    return;
+    // if (!items.length) {
+    //   return "List is already empty. Try add some todos cowboy...";
+    // }
+    // if (
+    //   prompt(
+    //     "WARNING! You are about to delete ALL your todos. This action is irreversible. Are you sure?"
+    //   ) !== null
+    // ) {
+    this.closeModal();
+    this.setState(() => ({ items: [] }));
+    // }
+    // return;
+  };
+  openModal = () => {
+    this.setState({ modalIsOpen: true });
   };
 
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+  };
+
+  toggleModal = () => {
+    this.setState(() => ({
+      isModalOpen: !this.state.isModalOpen
+    }));
+  };
+  message = () => {
+    return "why";
+  };
   render() {
     const { text, items, showAll, toggleAll, searchField } = this.state;
     //RENDER!
@@ -189,9 +194,14 @@ export default class FormStatefull extends Component {
     //console.log(filteredList);
     return (
       <React.Fragment>
-        {/* <TestModal
-          isOpen={this.state.modalIsOpen}
-        /> */}
+        {
+          <ShowModal
+            isOpen={this.state.modalIsOpen}
+            closeModal={this.closeModal}
+            boom={this.removeAll}
+            list={items}
+          ></ShowModal>
+        }
 
         <Inputs
           searchItems={this.searchItems}
@@ -211,6 +221,7 @@ export default class FormStatefull extends Component {
           searchItems={this.searchItems}
           edit={this.edit}
           boom={this.removeAll}
+          openModal={this.openModal}
         />
       </React.Fragment>
     );

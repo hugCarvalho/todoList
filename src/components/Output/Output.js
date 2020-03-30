@@ -8,7 +8,8 @@ export default function output({
   hide,
   toggleAll,
   toggleAllStatus,
-  boom
+  boom,
+  openModal
 }) {
   const filtered = list.filter(item => !item.props.completed);
 
@@ -46,7 +47,8 @@ export default function output({
         <button
           className="delete"
           type="button"
-          onClick={boom}
+          // onClick={boom}
+          onClick={openModal}
           title="delete all"
         >
           <i className="fas fa-bomb"> </i>

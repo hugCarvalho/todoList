@@ -1,38 +1,23 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./inputs.scss";
 
-// function TextInputWithFocusButton() {
-//   const inputEl = useRef(null);
-//   const onButtonClick = () => {
-//     // `current` points to the mounted text input element
-//     inputEl.current.focus();
-//   };
-//   return (
-//     <>
-//       <input ref={inputEl} type="text" />
-//       <button onClick={onButtonClick}>Focus the input</button>
-//     </>
-//   );
-// }
-
 const Input = React.forwardRef(
+  //needed for focus behaviour
   ({ text, textValue, add, searchItems, editing }, ref) => {
-    //console.log("INPUT");
-    //console.log(editing);
     const styleButton = () =>
-      !editing
-        ? null
-        : {
+      editing
+        ? {
             color: "#9acd32",
             borderColor: "#9acd32"
-          };
-    const showWarning = () =>
-      //text !== "" ? { borderColor: "green" } : { borderColor: "red" };
-      text.trim() ? "valid" : "invalid";
+          }
+        : null;
+
+    const showWarning = () => (text.trim() ? "valid" : "invalid");
+
     return (
       <>
         <div className="container-inputs">
-          <form onSubmit={add}>
+          <form onSubmit={text.trim() ? add : null}>
             {/* Add bar */}
             <div className="wrapper__add-todo">
               <input
@@ -43,7 +28,6 @@ const Input = React.forwardRef(
                 onChange={textValue}
                 placeholder="add..."
                 autoComplete="off"
-                //style={showWarning()}
                 ref={ref}
               />
               <button

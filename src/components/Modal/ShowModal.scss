@@ -1,0 +1,22 @@
+@import "../../index.scss";
+
+.btn {
+  margin: 13px 0;
+  padding: 3px;
+  color: gray;
+  color: #7a7a7a;
+  color: $b;
+  border: 1px solid gray;
+  &:hover {
+    transform: scale(1.1);
+  }
+  border-radius: 3px;
+}
+
+.modal-cancell {
+  margin-right: 8px;
+}
+
+h2 {
+  color: red;
+}
