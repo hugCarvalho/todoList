@@ -47,16 +47,17 @@ input.add-todo,
     &:focus {
       outline: none;
       background-color: $darkerWhite;
-      box-shadow: 0px 1px 10px 1px $pWhite;
+      box-shadow: 0px -1px 4px $pWhite;
+      background-color: $darkerWhite;
     }
   }
   .invalid:focus {
-    border: 1px solid $dRed;
-    border-right: none;
+    border-bottom: 1px solid rgb(200, 58, 58);
   }
-  .valid:focus {
+  input.add-todo.valid:focus {
     border: 1px solid $pGreen;
     border-right: none;
+    box-shadow: 0px 0px 4px $pWhite;
   }
   button {
     background-color: rgb(0, 0, 0);
@@ -84,7 +85,6 @@ input.add-todo,
 
 //Search input
 .wrapper__search-todo {
-  //background-color: rgb(64, 110, 141);
   position: relative;
   height: 6.4rem;
   display: flex;

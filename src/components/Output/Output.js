@@ -1,18 +1,19 @@
 import React from "react";
 import "./Output.scss";
-import BtnHideCompleted from "../BtnHideCompleted/BtnHideCompleted";
 
 export default function output({
   list,
   showAll,
-  hide,
+  toggleHide,
   toggleAll,
   toggleAllStatus,
   boom,
   openModal
 }) {
   const filtered = list.filter(item => !item.props.completed);
+  const hideIsActive = () => (showAll ? "hide-completed" : " hide-is-active");
 
+  console.log("RENDER");
   return (
     <section className="container__todos">
       <div className="options-top">
@@ -25,24 +26,24 @@ export default function output({
             <i className="far fa-square" title="uncheck all"></i>
           )}
         </button>
-        {/* Hide Completed */}
 
+        {/* hide or show Completed */}
         <button
           type="button"
-          onClick={hide}
-          className="btn__show-hide-completed"
+          onClick={toggleHide}
+          // className={}
         >
-          {showAll ? (
-            <span title="hide completed">
-              <i className="far fa-eye-slash"> completed</i>
-            </span>
-          ) : (
+          {/* {showAll ? ( */}
+          <span title="hide completed" className={hideIsActive()}>
+            <i className="far fa-eye-slash"> completed</i>
+          </span>
+          {/* ) : (
             <span title="show completed">
               <i className="far fa-eye"></i> completed
             </span>
-          )}
+          )} */}
         </button>
-        <BtnHideCompleted onClick={hide}>{showAll}</BtnHideCompleted>
+        {/* <BtnHideCompleted onClick={hide}>{showAll}</BtnHideCompleted> */}
         {/* Delete all */}
         <button
           className="delete"
@@ -55,10 +56,9 @@ export default function output({
         </button>
       </div>
 
+      {/* Show if list is empty */}
       <div className="container-todos">
-        {list.length === 0 && (
-          <p style={{ textAlign: "center" }}>Your list is empty...</p>
-        )}
+        {list.length === 0 && <p style={{ textAlign: "center" }}>Nothing...</p>}
         <ul>{showAll ? list : filtered}</ul>
       </div>
     </section>

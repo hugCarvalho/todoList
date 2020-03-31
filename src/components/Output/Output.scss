@@ -33,6 +33,22 @@
   .far {
     font-size: 1.7rem;
   }
+  .hide-completed {
+    color: $lGray2;
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .hide-is-active {
+    color: rgb(253, 241, 71);
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .hide-completed:focus {
+    color: red;
+  }
 }
 
 .btn__toggle-completed {
@@ -40,15 +56,6 @@
   color: #798168;
   border-radius: 2px;
   //background-color: white;
-  &:hover,
-  &:focus {
-    opacity: 1;
-  }
-}
-
-button.btn__show-hide-completed {
-  color: rgb(253, 241, 71);
-  opacity: 0.5;
   &:hover,
   &:focus {
     opacity: 1;

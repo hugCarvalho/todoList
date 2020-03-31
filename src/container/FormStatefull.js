@@ -10,13 +10,13 @@ export default class FormStatefull extends Component {
     items: [],
     text: "",
     searchField: "",
-    showAll: true,
+    showAll: false,
     toggleAll: true,
     editing: false,
     todoB: false,
     //searching: true
     inputRef: React.createRef(),
-    modalIsOpen: true
+    modalIsOpen: false
   };
 
   componentDidMount() {
@@ -105,7 +105,7 @@ export default class FormStatefull extends Component {
     this.setState(() => ({ toggleAll: !toggleAll }));
   };
 
-  hide = () => this.setState(() => ({ showAll: !this.state.showAll }));
+  toggleHide = () => this.setState(() => ({ showAll: !this.state.showAll }));
 
   //Afects ITEMS
   toggle = id => {
@@ -214,7 +214,7 @@ export default class FormStatefull extends Component {
         <Output
           list={filteredList}
           showAll={showAll}
-          hide={this.hide}
+          toggleHide={this.toggleHide}
           remove={this.remove}
           toggleAll={this.toggleAll}
           toggleAllStatus={toggleAll}
