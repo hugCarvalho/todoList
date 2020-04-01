@@ -3,9 +3,9 @@ import "./inputs.scss";
 
 const Input = React.forwardRef(
   //needed for focus behaviour
-  ({ text, textValue, add, searchItems, editing }, ref) => {
+  ({ text, getAddTodoTextValue, addTodo, searchItems, isEditing }, ref) => {
     const styleButton = () => {
-      return editing
+      return isEditing
         ? {
             color: "#9acd32",
             borderColor: "#9acd32"
@@ -18,7 +18,7 @@ const Input = React.forwardRef(
     return (
       <>
         <div className="container-inputs">
-          <form onSubmit={text.trim() ? add : null}>
+          <form onSubmit={text.trim() ? addTodo : null}>
             {/* Add bar */}
             <div className="wrapper__add-todo">
               <input
@@ -26,7 +26,7 @@ const Input = React.forwardRef(
                 className={`${showWarning()} ${"add-todo"}`}
                 value={text}
                 name="text"
-                onChange={textValue}
+                onChange={getAddTodoTextValue}
                 placeholder="enter title..."
                 autoComplete="off"
                 ref={ref}
@@ -36,7 +36,7 @@ const Input = React.forwardRef(
                 style={styleButton()}
                 className="btn__add-todo"
               >
-                {editing ? "Edit" : "Add"}
+                {isEditing ? "Edit" : "Add"}
               </button>
             </div>
 
@@ -45,7 +45,7 @@ const Input = React.forwardRef(
               <i className="fas fa-search"></i>
               <input
                 className="search-todo"
-                name="searchField"
+                name="searchFieldValue"
                 type="search"
                 placeholder="search..."
                 autoComplete="off"

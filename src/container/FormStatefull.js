@@ -5,14 +5,16 @@ import Inputs from "../components/Inputs/Inputs";
 import Output from "../components/Output/Output";
 import ShowModal from "../components/Modal/ShowModal";
 
+//TODO: set condition for localstorage first time
+
 export default class FormStatefull extends Component {
   state = {
     items: [],
     text: "",
-    searchField: "",
-    showAll: false,
-    toggleAll: true,
-    editing: false,
+    searchFieldValue: "",
+    showAllTodos: true,
+    toggleCheckAll: true,
+    isEditing: false,
     todoB: false,
     //searching: true
     inputRef: React.createRef(),
@@ -20,7 +22,9 @@ export default class FormStatefull extends Component {
   };
 
   componentDidMount() {
+    console.log(localStorage.length);
     this.focusMe();
+    //if (localStorage < 0)
     this.setState({
       items: JSON.parse(localStorage.getItem("myData"))
     });
@@ -30,10 +34,10 @@ export default class FormStatefull extends Component {
     const {
       text,
       items,
-      showAll,
-      editing,
+      showAllTodos,
+      isEditing,
       searching,
-      searchField
+      searchFieldValue
     } = this.state;
     const data = JSON.stringify(items);
 
@@ -42,16 +46,16 @@ export default class FormStatefull extends Component {
       "UPDATE",
       text,
       items,
-      showAll,
-      "editing:",
-      editing,
+      showAllTodos,
+      "isEditing:",
+      isEditing,
       "searching:",
       searching,
-      searchField.length
+      searchFieldValue.length
     );
   }
 
-  //ADD searchbar
+  //addTodo searchbar
   focusMe = () => this.state.inputRef.current.focus();
   textHandler = e => {
     console.log("texthandler");
@@ -61,7 +65,7 @@ export default class FormStatefull extends Component {
       [name]: value
     }));
   };
-  add = e => {
+  addTodo = e => {
     e.preventDefault();
     const { text, items } = this.state;
     const validText = text.trim();
@@ -72,15 +76,14 @@ export default class FormStatefull extends Component {
     const newItem = {
       id: uuid(),
       title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
-      completed: false
+      isCompleted: false
     };
 
     this.setState({
       items: [...items, newItem],
       text: "",
-      editing: false
+      isEditing: false
     });
-    console.log("ADD");
   };
 
   //SEARCH BAR
@@ -93,35 +96,36 @@ export default class FormStatefull extends Component {
   };
 
   //ITEMS MENU
-  toggleAll = () => {
-    const { items, toggleAll } = this.state;
-    console.log(toggleAll);
+  toggleCheckAll = () => {
+    const { items, toggleCheckAll } = this.state;
+    console.log(toggleCheckAll);
     this.setState({
       items: items.map(item => {
-        toggleAll ? (item.completed = true) : (item.completed = false);
+        toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false);
         return item;
       })
     });
-    this.setState(() => ({ toggleAll: !toggleAll }));
+    this.setState(() => ({ toggleCheckAll: !toggleCheckAll }));
   };
 
-  toggleHide = () => this.setState(() => ({ showAll: !this.state.showAll }));
+  toggleHideCompleted = () =>
+    this.setState(() => ({ showAllTodos: !this.state.showAllTodos }));
 
   //Afects ITEMS
-  toggle = id => {
+  toggleTodoCompleted = id => {
     const { items } = this.state;
     this.setState({
       items: items.map(item => {
         if (item.id === id) {
-          item.completed = !item.completed;
+          item.isCompleted = !item.isCompleted;
         }
         return item;
       })
     });
   };
-  //Edit
-  edit = id => {
-    if (this.state.editing) {
+  //editTodo
+  editTodo = id => {
+    if (this.state.isEditing) {
       return;
     }
     const item = this.state.items.filter(item => item.id === id);
@@ -130,11 +134,11 @@ export default class FormStatefull extends Component {
       items: this.state.items.filter(item => item.id !== id),
       text: item[0].title
     });
-    this.setState(() => ({ editing: !this.state.editing }));
+    this.setState(() => ({ isEditing: !this.state.isEditing }));
     this.focusMe();
   };
 
-  remove = id =>
+  removeTodo = id =>
     this.setState({
       items: this.state.items.filter(item => item.id !== id)
     });
@@ -173,23 +177,31 @@ export default class FormStatefull extends Component {
     return "why";
   };
   render() {
-    const { text, items, showAll, toggleAll, searchField } = this.state;
+    const {
+      text,
+      items,
+      showAllTodos,
+      toggleCheckAll,
+      searchFieldValue
+    } = this.state;
     //RENDER!
-    // console.log("render");
     const list = items
       .map(item => (
         <Item
           key={item.id}
-          title={item.title}
-          completed={item.completed}
-          toggle={() => this.toggle(item.id)}
-          remove={() => this.remove(item.id)}
-          edit={() => this.edit(item.id)}
+          todoTitle={item.title}
+          isCompleted={item.isCompleted}
+          toggleTodoCompleted={() => this.toggleTodoCompleted(item.id)}
+          removeTodo={() => this.removeTodo(item.id)}
+          editTodo={() => this.editTodo(item.id)}
         />
       ))
-      .sort((a, b) => (a.props.completed < b.props.completed ? -1 : 1));
+      .sort((a, b) => (a.props.isCompleted < b.props.isCompleted ? -1 : 1));
+
     const filteredList = list.filter(item => {
-      return item.props.title.toLowerCase().includes(searchField.toLowerCase());
+      return item.props.todoTitle
+        .toLowerCase()
+        .includes(searchFieldValue.toLowerCase());
     });
     //console.log(filteredList);
     return (
@@ -202,25 +214,20 @@ export default class FormStatefull extends Component {
             list={items}
           ></ShowModal>
         }
-
         <Inputs
-          searchItems={this.searchItems}
-          textValue={this.textHandler}
-          add={this.add}
           text={text}
-          editing={this.state.editing}
+          getAddTodoTextValue={this.textHandler}
+          addTodo={this.addTodo}
+          searchItems={this.searchItems}
+          isEditing={this.state.editing}
           ref={this.state.inputRef}
         />
         <Output
           list={filteredList}
-          showAll={showAll}
-          toggleHide={this.toggleHide}
-          remove={this.remove}
-          toggleAll={this.toggleAll}
-          toggleAllStatus={toggleAll}
-          searchItems={this.searchItems}
-          edit={this.edit}
-          boom={this.removeAll}
+          showAllTodos={showAllTodos}
+          toggleHideCompleted={this.toggleHideCompleted}
+          toggleCheckAll={this.toggleCheckAll}
+          toggleCheckAllStatus={toggleCheckAll}
           openModal={this.openModal}
         />
       </React.Fragment>

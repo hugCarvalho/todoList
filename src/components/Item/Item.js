@@ -1,9 +1,15 @@
 import React from "react";
 import "./Item.scss";
 
-export default function Item({ remove, title, toggle, completed, edit }) {
+export default function Item({
+  removeTodo,
+  todoTitle,
+  toggleTodoCompleted,
+  isCompleted,
+  editTodo
+}) {
   const styleCompleted = () =>
-    completed
+    isCompleted
       ? {
           color: "gray",
           textDecoration: "line-through"
@@ -17,22 +23,22 @@ export default function Item({ remove, title, toggle, completed, edit }) {
           {/* Check/Uncheck */}
           <input
             type="checkbox"
-            checked={completed ? true : false}
-            onChange={toggle}
+            checked={isCompleted ? true : false}
+            onChange={toggleTodoCompleted}
           />
-          <span style={styleCompleted()}>{title}</span>
+          <span style={styleCompleted()}>{todoTitle}</span>
         </label>
       </div>
 
       <div className="wrapper__edit-delete">
         {/* Edit */}
-        <span onClick={edit}>
+        <span onClick={editTodo}>
           <button title="edit" className="btn-edit">
             <i className="fas fa-edit"></i>
           </button>
         </span>
         {/* Delete */}
-        <button onClick={remove} title="delete" className="btn-delete">
+        <button onClick={removeTodo} title="delete" className="btn-delete">
           <i className="fas fa-trash"></i>
         </button>
       </div>
