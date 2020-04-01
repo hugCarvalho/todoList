@@ -12,7 +12,7 @@ export default function output({
   toggleCheckAllStatus,
   openModal
 }) {
-  const filtered = list.filter(item => !item.props.completed);
+  const filtered = list.filter(item => !item.props.isCompleted);
   //Set classes for styling with css
   const hideIsActive = () =>
     showAllTodos ? "show-completed" : " hide-is-active";
@@ -58,11 +58,13 @@ export default function output({
         </button>
       </div>
 
-      {/* Show if list is empty */}
       <div className="container-todos">
+        {/* Show if list is empty */}
         {list.length === 0 && (
           <p style={{ textAlign: "center" }}>Emptieness...</p>
         )}
+
+        {/* Show all todos or hide completed */}
         <ul>{showAllTodos ? list : filtered}</ul>
       </div>
     </section>
