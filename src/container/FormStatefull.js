@@ -10,8 +10,8 @@ import ShowModal from "../components/Modal/ShowModal";
 export default class FormStatefull extends Component {
   state = {
     todoList: [],
-    text: "",
-    searchFieldValue: "",
+    addTodoText: "",
+    searchFieldText: "",
     showAllTodos: false,
     toggleCheckAll: false,
     isEditing: false,
@@ -28,15 +28,14 @@ export default class FormStatefull extends Component {
       showAllTodos: JSON.parse(localStorage.getItem("showAllTodos"))
     });
   }
-
   componentDidUpdate() {
     const {
-      text,
+      addTodoText,
       todoList,
       showAllTodos,
       isEditing,
       searching,
-      searchFieldValue
+      searchFieldText
     } = this.state;
 
     const todosData = JSON.stringify(todoList);
@@ -49,14 +48,14 @@ export default class FormStatefull extends Component {
     //For control only, delete once app is done
     console.log(
       "UPDATE",
-      text,
+      addTodoText,
       todoList,
       showAllTodos,
       "isEditing:",
       isEditing,
       "searching:",
       searching,
-      searchFieldValue.length
+      searchFieldText.length
     );
   }
 
@@ -64,18 +63,19 @@ export default class FormStatefull extends Component {
   focusAddTodoField = () => this.state.inputRef.current.focus();
   textHandler = e => {
     console.log("texthandler");
-    const name = e.target.name.toLowerCase();
+    const name = e.target.name;
     const value = e.target.value;
+    console.log("name", name);
     this.setState(() => ({
       [name]: value
     }));
   };
   addTodo = e => {
     e.preventDefault();
-    const { text, todoList } = this.state;
-    const validText = text.trim();
+    const { addTodoText, todoList } = this.state;
+    const validText = addTodoText.trim();
 
-    if (!text.trim()) {
+    if (!addTodoText.trim()) {
       return;
     }
     const newItem = {
@@ -85,7 +85,7 @@ export default class FormStatefull extends Component {
     };
     this.setState({
       todoList: [...todoList, newItem],
-      text: "",
+      addTodoText: "",
       isEditing: false
     });
   };
@@ -136,7 +136,7 @@ export default class FormStatefull extends Component {
 
     this.setState({
       todoList: this.state.todoList.filter(item => item.id !== id),
-      text: item[0].title
+      addTodoText: item[0].title.trim()
     });
     this.setState(() => ({ isEditing: !this.state.isEditing }));
     this.focusAddTodoField();
@@ -168,11 +168,11 @@ export default class FormStatefull extends Component {
   //Render
   render() {
     const {
-      text,
+      addTodoText,
       todoList,
       showAllTodos,
       toggleCheckAll,
-      searchFieldValue
+      searchFieldText
     } = this.state;
 
     const list = todoList
@@ -191,7 +191,7 @@ export default class FormStatefull extends Component {
     const filteredList = list.filter(item => {
       return item.props.todoTitle
         .toLowerCase()
-        .includes(searchFieldValue.toLowerCase());
+        .includes(searchFieldText.toLowerCase());
     });
     //console.log(filteredList);
     return (
@@ -205,11 +205,11 @@ export default class FormStatefull extends Component {
           ></ShowModal>
         }
         <Inputs
-          text={text}
+          addTodoText={addTodoText}
           getAddTodoTextValue={this.textHandler}
           addTodo={this.addTodo}
           searchItems={this.searchItems}
-          isEditing={this.state.editing}
+          isEditing={this.state.isEditing}
           ref={this.state.inputRef}
         />
         <Output

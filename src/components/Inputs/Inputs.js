@@ -1,9 +1,13 @@
 import React from "react";
 import "./inputs.scss";
 
+//needed for focus behaviour
 const Input = React.forwardRef(
-  //needed for focus behaviour
-  ({ text, getAddTodoTextValue, addTodo, searchItems, isEditing }, ref) => {
+  (
+    { addTodoText, getAddTodoTextValue, addTodo, searchItems, isEditing },
+    ref
+  ) => {
+    const showWarning = () => (addTodoText.trim() ? "valid" : "invalid");
     const styleButton = () => {
       return isEditing
         ? {
@@ -12,20 +16,18 @@ const Input = React.forwardRef(
           }
         : null;
     };
-
-    const showWarning = () => (text.trim() ? "valid" : "invalid");
-
+    console.log("RENER");
     return (
       <>
         <div className="container-inputs">
-          <form onSubmit={text.trim() ? addTodo : null}>
+          <form onSubmit={addTodoText.trim() ? addTodo : null}>
             {/* Add bar */}
             <div className="wrapper__add-todo">
               <input
                 type="search"
                 className={`${showWarning()} ${"add-todo"}`}
-                value={text}
-                name="text"
+                value={addTodoText}
+                name="addTodoText"
                 onChange={getAddTodoTextValue}
                 placeholder="enter title..."
                 autoComplete="off"
