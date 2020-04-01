@@ -2,20 +2,29 @@ import React from "react";
 import "./Output.scss";
 
 //TODO: commit preferences toggle all to loal storage
-//TODO: check list and filtered list (with formstate)
+//TODO: check filteredTodoList and filtered list (with formstate)
 
 export default function output({
-  list,
+  todoList,
+  filteredTodoList,
   showAllTodos,
   toggleHideCompleted,
   toggleCheckAll,
   toggleCheckAllStatus,
   openModal
 }) {
-  const filtered = list.filter(item => !item.props.isCompleted);
+  const filtered = filteredTodoList.filter(item => !item.props.isCompleted);
   //Set classes for styling with css
   const hideIsActive = () =>
     showAllTodos ? "show-completed" : " hide-is-active";
+
+  const showListIsEmptyMessage = () => {
+    return !todoList.length ? (
+      <p style={{ textAlign: "center" }}>Emptieness...</p>
+    ) : !filteredTodoList.length ? (
+      <p style={{ textAlign: "center" }}>No match found!</p>
+    ) : null;
+  };
 
   return (
     <section className="container__todos">
@@ -59,13 +68,11 @@ export default function output({
       </div>
 
       <div className="container-todos">
-        {/* Show if list is empty */}
-        {list.length === 0 && (
-          <p style={{ textAlign: "center" }}>Emptieness...</p>
-        )}
+        {/* Show if list or filteredTodoList is empty */}
+        {showListIsEmptyMessage()}
 
         {/* Show all todos or hide completed */}
-        <ul>{showAllTodos ? list : filtered}</ul>
+        <ul>{showAllTodos ? filteredTodoList : filtered}</ul>
       </div>
     </section>
   );

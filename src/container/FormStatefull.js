@@ -137,21 +137,13 @@ export default class FormStatefull extends Component {
     });
 
   removeAll = () => {
-    this.closeModal();
+    this.toggleModal();
     this.setState(() => ({ todoList: [] }));
-  };
-
-  openModal = () => {
-    this.setState(() => ({ modalIsOpen: true }));
-  };
-
-  closeModal = () => {
-    this.setState({ modalIsOpen: false });
   };
 
   toggleModal = () => {
     this.setState(() => ({
-      isModalOpen: !this.state.isModalOpen
+      modalIsOpen: !this.state.modalIsOpen
     }));
   };
 
@@ -183,15 +175,14 @@ export default class FormStatefull extends Component {
         .toLowerCase()
         .includes(searchFieldValue.toLowerCase());
     });
-    //console.log(filteredList);
     return (
       <React.Fragment>
         {
           <ShowModal
             isOpen={this.state.modalIsOpen}
-            closeModal={this.closeModal}
+            closeModal={this.toggleModal}
             boom={this.removeAll}
-            list={todoList}
+            todoList={list}
           ></ShowModal>
         }
         <Inputs
@@ -203,12 +194,13 @@ export default class FormStatefull extends Component {
           ref={this.state.inputRef}
         />
         <Output
-          list={filteredList}
+          todoList={list}
+          filteredTodoList={filteredList}
           showAllTodos={showAllTodos}
           toggleHideCompleted={this.toggleHideCompleted}
           toggleCheckAll={this.toggleCheckAll}
           toggleCheckAllStatus={toggleCheckAll}
-          openModal={this.openModal}
+          openModal={this.toggleModal}
         />
       </React.Fragment>
     );

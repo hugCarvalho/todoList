@@ -3,7 +3,7 @@ import "./inputs.scss";
 
 //needed for focus behaviour
 const Input = React.forwardRef(
-  ({ addTodoText, getTextValue, addTodo, searchItems, isEditing }, ref) => {
+  ({ addTodoText, getTextValue, addTodo, isEditing }, ref) => {
     const showWarning = () => (addTodoText.trim() ? "valid" : "invalid");
     const styleButton = () => {
       return isEditing
@@ -13,7 +13,6 @@ const Input = React.forwardRef(
           }
         : null;
     };
-    console.log("RENER");
     return (
       <>
         <div className="container-inputs">

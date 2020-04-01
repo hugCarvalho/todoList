@@ -12,7 +12,7 @@ function ShowModal(props) {
         isOpen={props.isOpen}
         onRequestClose={props.closeModal}
       >
-        {props.list.length < 1 ? (
+        {props.todoList.length < 1 ? (
           <p>There is nothing to delete...</p>
         ) : (
           <>
