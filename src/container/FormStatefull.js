@@ -11,7 +11,7 @@ export default class FormStatefull extends Component {
   state = {
     todoList: [],
     addTodoText: "",
-    searchFieldText: "",
+    searchFieldValue: "",
     showAllTodos: false,
     toggleCheckAll: false,
     isEditing: false,
@@ -22,11 +22,12 @@ export default class FormStatefull extends Component {
 
   componentDidMount() {
     this.focusAddTodoField();
-    //if (localStorage < 0)
-    this.setState({
-      todoList: JSON.parse(localStorage.getItem("myData")),
-      showAllTodos: JSON.parse(localStorage.getItem("showAllTodos"))
-    });
+    if (localStorage.myData) {
+      this.setState({
+        todoList: JSON.parse(localStorage.getItem("myData")),
+        showAllTodos: JSON.parse(localStorage.getItem("showAllTodos"))
+      });
+    }
   }
   componentDidUpdate() {
     const {
@@ -35,7 +36,7 @@ export default class FormStatefull extends Component {
       showAllTodos,
       isEditing,
       searching,
-      searchFieldText
+      searchFieldValue
     } = this.state;
 
     const todosData = JSON.stringify(todoList);
@@ -55,34 +56,33 @@ export default class FormStatefull extends Component {
       isEditing,
       "searching:",
       searching,
-      searchFieldText.length
+      searchFieldValue.length
     );
   }
-
-  //addTodo searchbar
-  focusAddTodoField = () => this.state.inputRef.current.focus();
-  textHandler = e => {
-    console.log("texthandler");
+  //Gets typed text for add+search fields
+  enteredTextHandler = e => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log("name", name);
     this.setState(() => ({
       [name]: value
     }));
   };
+  //AddTodo searchbar
+  focusAddTodoField = () => this.state.inputRef.current.focus();
+
   addTodo = e => {
-    e.preventDefault();
     const { addTodoText, todoList } = this.state;
     const validText = addTodoText.trim();
-
-    if (!addTodoText.trim()) {
-      return;
-    }
     const newItem = {
       id: uuid(),
       title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
       isCompleted: false
     };
+
+    e.preventDefault();
+    if (!addTodoText.trim()) {
+      return;
+    }
     this.setState({
       todoList: [...todoList, newItem],
       addTodoText: "",
@@ -90,19 +90,9 @@ export default class FormStatefull extends Component {
     });
   };
 
-  //SEARCH BAR
-  searchItems = e => {
-    console.log(e.target.name);
-    console.log(e.target.value);
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
   //Toggle Options
   toggleCheckAll = () => {
     const { todoList, toggleCheckAll } = this.state;
-    console.log(toggleCheckAll);
     this.setState({
       todoList: todoList.map(item => {
         toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false);
@@ -129,14 +119,13 @@ export default class FormStatefull extends Component {
 
   //Edit todos
   editTodo = id => {
+    const todo = this.state.todoList.filter(item => item.id === id);
     if (this.state.isEditing) {
       return;
     }
-    const item = this.state.todoList.filter(item => item.id === id);
-
     this.setState({
       todoList: this.state.todoList.filter(item => item.id !== id),
-      addTodoText: item[0].title.trim()
+      addTodoText: todo[0].title.trim()
     });
     this.setState(() => ({ isEditing: !this.state.isEditing }));
     this.focusAddTodoField();
@@ -151,6 +140,7 @@ export default class FormStatefull extends Component {
     this.closeModal();
     this.setState(() => ({ todoList: [] }));
   };
+
   openModal = () => {
     this.setState(() => ({ modalIsOpen: true }));
   };
@@ -172,7 +162,7 @@ export default class FormStatefull extends Component {
       todoList,
       showAllTodos,
       toggleCheckAll,
-      searchFieldText
+      searchFieldValue
     } = this.state;
 
     const list = todoList
@@ -191,7 +181,7 @@ export default class FormStatefull extends Component {
     const filteredList = list.filter(item => {
       return item.props.todoTitle
         .toLowerCase()
-        .includes(searchFieldText.toLowerCase());
+        .includes(searchFieldValue.toLowerCase());
     });
     //console.log(filteredList);
     return (
@@ -206,7 +196,7 @@ export default class FormStatefull extends Component {
         }
         <Inputs
           addTodoText={addTodoText}
-          getAddTodoTextValue={this.textHandler}
+          getTextValue={this.enteredTextHandler}
           addTodo={this.addTodo}
           searchItems={this.searchItems}
           isEditing={this.state.isEditing}
