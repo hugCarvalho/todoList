@@ -3,13 +3,14 @@ import "./inputs.scss";
 
 //needed for focus behaviour
 const Input = React.forwardRef(
-  ({ addTodoText, getTextValue, addTodo, isEditing }, ref) => {
+  ({ addTodoText, addTodo, getTextValue, isEditing }, ref) => {
     const showWarning = () => (addTodoText.trim() ? "valid" : "invalid");
+
     const styleButton = () => {
       return isEditing
         ? {
-            color: "#9acd32",
-            borderColor: "#9acd32"
+            color: "orange"
+            //borderColor: "orange"
           }
         : null;
     };
@@ -22,17 +23,17 @@ const Input = React.forwardRef(
               <input
                 type="search"
                 className={`${showWarning()} ${"add-todo"}`}
-                value={addTodoText}
-                name="addTodoText"
-                onChange={getTextValue}
                 placeholder="enter title..."
-                autoComplete="off"
+                name="addTodoText"
+                value={addTodoText}
+                onChange={getTextValue}
                 ref={ref}
+                autoComplete="off"
               />
               <button
                 type="submit"
-                style={styleButton()}
                 className="btn__add-todo"
+                style={styleButton()}
               >
                 {isEditing ? "Edit" : "Add"}
               </button>
@@ -42,12 +43,12 @@ const Input = React.forwardRef(
             <div className="wrapper__search-todo">
               <i className="fas fa-search"></i>
               <input
-                className="search-todo"
-                name="searchFieldValue"
                 type="search"
+                className="search-todo"
                 placeholder="search..."
-                autoComplete="off"
+                name="searchFieldValue"
                 onChange={getTextValue}
+                autoComplete="off"
               />
             </div>
           </form>

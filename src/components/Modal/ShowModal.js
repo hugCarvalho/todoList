@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import "./ShowModal.scss";
+
 Modal.setAppElement("#root");
 
 function ShowModal(props) {
@@ -47,9 +48,7 @@ const overlay = {
     right: "12%",
     bottom: "auto%",
     borderColor: "red",
-    color: "#cccfcf",
-
-    h2: { color: "green;" }
+    color: "#cccfcf"
   }
 };
 

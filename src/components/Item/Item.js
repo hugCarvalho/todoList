@@ -2,11 +2,11 @@ import React from "react";
 import "./Item.scss";
 
 export default function Item({
-  removeTodo,
   todoTitle,
   toggleTodoCompleted,
   isCompleted,
-  editTodo
+  editTodo,
+  removeTodo
 }) {
   const styleCompleted = () =>
     isCompleted
@@ -23,8 +23,8 @@ export default function Item({
           {/* Check/Uncheck */}
           <input
             type="checkbox"
-            checked={isCompleted ? true : false}
             onChange={toggleTodoCompleted}
+            checked={isCompleted ? true : false}
           />
           <span style={styleCompleted()}>{todoTitle}</span>
         </label>

@@ -1,27 +1,31 @@
 import React from "react";
 import "./Output.scss";
 
-//TODO: commit preferences toggle all to loal storage
-//TODO: check filteredTodoList and filtered list (with formstate)
-
 export default function output({
   todoList,
-  filteredTodoList,
   showAllTodos,
   toggleHideCompleted,
   toggleCheckAll,
   toggleCheckAllStatus,
-  openModal
+  openModal,
+  searchFieldValue
 }) {
-  const filtered = filteredTodoList.filter(item => !item.props.isCompleted);
+  const filteredSearchList = todoList.filter(item => {
+    return item.props.todoTitle
+      .toLowerCase()
+      .includes(searchFieldValue.toLowerCase());
+  });
+  const notCompletedList = filteredSearchList.filter(
+    item => !item.props.isCompleted
+  );
   //Set classes for styling with css
-  const hideIsActive = () =>
+  const toggleHideCompletedClasses = () =>
     showAllTodos ? "show-completed" : " hide-is-active";
 
   const showListIsEmptyMessage = () => {
     return !todoList.length ? (
       <p style={{ textAlign: "center" }}>Emptieness...</p>
-    ) : !filteredTodoList.length ? (
+    ) : !filteredSearchList.length ? (
       <p style={{ textAlign: "center" }}>No match found!</p>
     ) : null;
   };
@@ -35,7 +39,6 @@ export default function output({
           className="btn__toggle-completed"
           onClick={toggleCheckAll}
         >
-          {" "}
           {toggleCheckAllStatus ? (
             <i className="far fa-check-square" title="check all"></i>
           ) : (
@@ -47,7 +50,7 @@ export default function output({
         <button
           type="button"
           onClick={toggleHideCompleted}
-          className={hideIsActive()}
+          className={toggleHideCompletedClasses()}
         >
           {/* {showAllTodos ? ( */}
           <span title="hide completed">
@@ -68,11 +71,11 @@ export default function output({
       </div>
 
       <div className="container-todos">
-        {/* Show if list or filteredTodoList is empty */}
+        {/* Show if list or filteredSearchList is empty */}
         {showListIsEmptyMessage()}
 
         {/* Show all todos or hide completed */}
-        <ul>{showAllTodos ? filteredTodoList : filtered}</ul>
+        <ul>{showAllTodos ? filteredSearchList : notCompletedList}</ul>
       </div>
     </section>
   );

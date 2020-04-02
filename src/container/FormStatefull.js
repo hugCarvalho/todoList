@@ -12,10 +12,9 @@ export default class FormStatefull extends Component {
     todoList: [],
     addTodoText: "",
     searchFieldValue: "",
+    isEditing: false,
     showAllTodos: false,
     toggleCheckAll: false,
-    isEditing: false,
-    todoB: false,
     modalIsOpen: false,
     inputRef: React.createRef()
   };
@@ -41,11 +40,10 @@ export default class FormStatefull extends Component {
 
     const todosData = JSON.stringify(todoList);
 
-    //Optionally create an object for all...
-    localStorage.setItem("myData", todosData);
+    //Optionally create an object for all?...
+    localStorage.setItem("todosData", todosData);
     localStorage.setItem("showAllTodos", JSON.stringify(showAllTodos));
 
-    console.log("local", showAllTodos);
     //For control only, delete once app is done
     console.log(
       "UPDATE",
@@ -73,7 +71,7 @@ export default class FormStatefull extends Component {
   addTodo = e => {
     const { addTodoText, todoList } = this.state;
     const validText = addTodoText.trim();
-    const newItem = {
+    const newTodo = {
       id: uuid(),
       title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
       isCompleted: false
@@ -84,7 +82,7 @@ export default class FormStatefull extends Component {
       return;
     }
     this.setState({
-      todoList: [...todoList, newItem],
+      todoList: [...todoList, newTodo],
       addTodoText: "",
       isEditing: false
     });
@@ -131,6 +129,7 @@ export default class FormStatefull extends Component {
     this.focusAddTodoField();
   };
 
+  //Remove Todos
   removeTodo = id =>
     this.setState({
       todoList: this.state.todoList.filter(item => item.id !== id)
@@ -138,9 +137,12 @@ export default class FormStatefull extends Component {
 
   removeAll = () => {
     this.toggleModal();
-    this.setState(() => ({ todoList: [] }));
+    this.setState(() => ({
+      todoList: this.state.todoList.filter(item => !item)
+    }));
   };
 
+  //Modal
   toggleModal = () => {
     this.setState(() => ({
       modalIsOpen: !this.state.modalIsOpen
@@ -169,25 +171,19 @@ export default class FormStatefull extends Component {
         />
       ))
       .sort((a, b) => (a.props.isCompleted < b.props.isCompleted ? -1 : 1));
-
-    const filteredList = list.filter(item => {
-      return item.props.todoTitle
-        .toLowerCase()
-        .includes(searchFieldValue.toLowerCase());
-    });
     return (
       <React.Fragment>
         {
           <ShowModal
+            todoList={list}
             isOpen={this.state.modalIsOpen}
             closeModal={this.toggleModal}
             boom={this.removeAll}
-            todoList={list}
           ></ShowModal>
         }
         <Inputs
-          addTodoText={addTodoText}
           getTextValue={this.enteredTextHandler}
+          addTodoText={addTodoText}
           addTodo={this.addTodo}
           searchItems={this.searchItems}
           isEditing={this.state.isEditing}
@@ -195,8 +191,8 @@ export default class FormStatefull extends Component {
         />
         <Output
           todoList={list}
-          filteredTodoList={filteredList}
           showAllTodos={showAllTodos}
+          searchFieldValue={searchFieldValue}
           toggleHideCompleted={this.toggleHideCompleted}
           toggleCheckAll={this.toggleCheckAll}
           toggleCheckAllStatus={toggleCheckAll}
