@@ -16,13 +16,12 @@
 
 .wrapper__checkbox-title {
   //background-color: white;
+  padding-right: 8px;
   display: flex;
   flex: 1;
   justify-content: space-between;
-  padding-right: 8px;
 
   label {
-    // background-color: lightseagreen;
     display: flex;
     align-items: center;
     :hover {
@@ -30,7 +29,6 @@
     }
   }
   span {
-    //background-color: pink;
     padding-left: 8px;
     word-break: break-all;
   }
@@ -39,29 +37,31 @@
 .wrapper__edit-delete {
   button {
     background-color: transparent;
-    border: none;
     min-height: 10px;
+    border: none;
   }
 
-  .btn-edit {
-    margin-right: 8px;
+  .btn__edit {
     color: $pGreen;
-    opacity: 0.6;
+    margin-right: 8px;
+    opacity: 0.7; //6?
     &:hover,
     &:focus {
       opacity: 1;
     }
   }
 
-  .btn-delete {
+  .btn__delete {
     color: $dPink;
     &:hover,
     &:focus {
       color: $lRed;
+      opacity: 1;
     }
   }
 }
 
+//fontawsonme
 .fas {
   border: none;
 }

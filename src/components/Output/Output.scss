@@ -1,17 +1,16 @@
 @import "../../index.scss";
 
 .container__todos {
-  //background-color: rgb(48, 47, 47);
   padding: 6px;
 
   button {
-    border: none;
     background-color: transparent;
     color: $lGray;
     //color: $darkerWhite;
     border: none;
     opacity: 0.7;
   }
+  //msg to be displayed if search / list is empty
   p {
     margin-top: 25vh;
     font-size: 2.5rem;
@@ -20,15 +19,13 @@
 }
 
 .options-top {
-  //background-color: rgb(29, 29, 27);
+  background-color: $lBlack;
+  padding: 4px 3px;
+  font-size: 10rem; //erase
   display: flex;
   justify-content: space-between;
-  padding: 4px 3px;
   margin-bottom: 8px;
-  background-color: $lBlack;
   border-radius: 3px;
-  font-size: 10rem; //erase
-  //background-color: yellowgreen;
   .fas,
   .far {
     font-size: 1.7rem;
@@ -40,41 +37,40 @@
       opacity: 1;
     }
   }
-  .hide-is-active {
+  .hide-completed {
     color: rgb(253, 241, 71);
+    opacity: 1;
     &:hover {
       opacity: 0.8;
     }
+    &:focus {
+      opacity: 0.9;
+    }
   }
-  .hide-completed:focus {
-    color: red;
+  .btn__toggle-completed {
+    padding: 2px;
+    color: #798168; //CHANGE?
+    border-radius: 2px;
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
   }
-}
-
-.btn__toggle-completed {
-  padding: 2px;
-  color: #798168;
-  border-radius: 2px;
-  //background-color: white;
-  &:hover,
-  &:focus {
-    opacity: 1;
-  }
-}
-
-button.delete {
-  color: $dPink;
-  &:hover,
-  &:focus {
-    color: $lRed;
+  button.delete {
+    color: $dPink;
+    &:hover,
+    &:focus {
+      color: $lRed;
+      opacity: 1;
+    }
   }
 }
 
+//fontawsome
 .fas,
 .far {
   font-size: 1.4rem;
 }
-
 .fa-square {
   color: $lGray;
 }

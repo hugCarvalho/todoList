@@ -16,7 +16,7 @@ const Input = React.forwardRef(
     };
     return (
       <>
-        <div className="container-inputs">
+        <div className="container__inputs">
           <form onSubmit={addTodoText.trim() ? addTodo : null}>
             {/* Add bar */}
             <div className="wrapper__add-todo">

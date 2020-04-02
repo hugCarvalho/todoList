@@ -33,12 +33,12 @@ export default function Item({
       <div className="wrapper__edit-delete">
         {/* Edit */}
         <span onClick={editTodo}>
-          <button title="edit" className="btn-edit">
+          <button title="edit" className="btn__edit">
             <i className="fas fa-edit"></i>
           </button>
         </span>
         {/* Delete */}
-        <button onClick={removeTodo} title="delete" className="btn-delete">
+        <button onClick={removeTodo} title="delete" className="btn__delete">
           <i className="fas fa-trash"></i>
         </button>
       </div>

@@ -20,7 +20,7 @@ export default function output({
   );
   //Set classes for styling with css
   const toggleHideCompletedClasses = () =>
-    showAllTodos ? "show-completed" : " hide-is-active";
+    showAllTodos ? "show-completed" : " hide-completed";
 
   const showListIsEmptyMessage = () => {
     return !todoList.length ? (
