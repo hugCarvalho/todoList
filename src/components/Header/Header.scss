@@ -10,3 +10,10 @@ header {
     color: yellowgreen;
   }
 }
+
+@media (min-width: 1140px) {
+  h1 {
+    font-size: 5.2rem;
+    padding: 15px;
+  }
+}

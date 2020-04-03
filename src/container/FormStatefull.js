@@ -19,6 +19,8 @@ export default class FormStatefull extends Component {
     inputRef: React.createRef()
   };
 
+  componentDidCatch() {}
+
   componentDidMount() {
     this.focusAddTodoField();
     if (localStorage.myData) {

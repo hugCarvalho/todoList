@@ -65,3 +65,9 @@
 .fas {
   border: none;
 }
+
+@media (min-width: 1140px) {
+  .todo-item {
+    padding: 17px 16px;
+  }
+}

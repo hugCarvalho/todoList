@@ -24,9 +24,9 @@ export default function output({
 
   const showListIsEmptyMessage = () => {
     return !todoList.length ? (
-      <p style={{ textAlign: "center" }}>Emptieness...</p>
+      <p>Emptieness...</p>
     ) : !filteredSearchList.length ? (
-      <p style={{ textAlign: "center" }}>No match found!</p>
+      <p>No match found!</p>
     ) : null;
   };
 
