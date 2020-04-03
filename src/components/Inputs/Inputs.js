@@ -3,7 +3,7 @@ import "./inputs.scss";
 
 //needed for focus behaviour
 const Input = React.forwardRef(
-  ({ addTodoText, addTodo, getTextValue, isEditing }, ref) => {
+  ({ addTodoText, addTodo, getTextValue, isEditing, error }, ref) => {
     const showWarning = () => (addTodoText.trim() ? "valid" : "invalid");
 
     const styleButton = () => {

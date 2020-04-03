@@ -13,19 +13,17 @@ export default class FormStatefull extends Component {
     addTodoText: "",
     searchFieldValue: "",
     isEditing: false,
-    showAllTodos: false,
+    showAllTodos: true,
     toggleCheckAll: false,
     modalIsOpen: false,
     inputRef: React.createRef()
   };
 
-  componentDidCatch() {}
-
   componentDidMount() {
     this.focusAddTodoField();
-    if (localStorage.myData) {
+    if (localStorage.todosData) {
       this.setState({
-        todoList: JSON.parse(localStorage.getItem("myData")),
+        todoList: JSON.parse(localStorage.getItem("todosData")),
         showAllTodos: JSON.parse(localStorage.getItem("showAllTodos"))
       });
     }
@@ -72,17 +70,16 @@ export default class FormStatefull extends Component {
 
   addTodo = e => {
     const { addTodoText, todoList } = this.state;
-    const validText = addTodoText.trim();
+    const text = addTodoText;
+    //const validText = addTodoText.trim();
+
     const newTodo = {
       id: uuid(),
-      title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
+      title: `${text[0].toUpperCase() + text.substring(1)}  `,
       isCompleted: false
     };
 
     e.preventDefault();
-    if (!addTodoText.trim()) {
-      return;
-    }
     this.setState({
       todoList: [...todoList, newTodo],
       addTodoText: "",
@@ -150,7 +147,10 @@ export default class FormStatefull extends Component {
       modalIsOpen: !this.state.modalIsOpen
     }));
   };
-
+  showError = () => {
+    console.log("object");
+    return;
+  };
   //Render
   render() {
     const {
@@ -190,6 +190,7 @@ export default class FormStatefull extends Component {
           searchItems={this.searchItems}
           isEditing={this.state.isEditing}
           ref={this.state.inputRef}
+          error={this.showError}
         />
         <Output
           todoList={list}
