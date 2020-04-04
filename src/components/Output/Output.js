@@ -7,8 +7,10 @@ export default function output({
   toggleHideCompleted,
   toggleCheckAll,
   toggleCheckAllStatus,
-  openModal,
-  searchFieldValue
+  //openModal,
+  setErrorMessage,
+  //removeAllTodos,
+  searchFieldValue,
 }) {
   const filteredSearchList = todoList.filter(item => {
     return item.props.todoTitle
@@ -63,7 +65,8 @@ export default function output({
         <button
           className="delete"
           type="button"
-          onClick={openModal}
+          //onClick={openModal}
+          onClick={() => setErrorMessage("deleteAll")}
           title="delete all"
         >
           <i className="fas fa-bomb"> </i>

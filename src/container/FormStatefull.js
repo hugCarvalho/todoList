@@ -5,39 +5,47 @@ import Inputs from "../components/Inputs/Inputs";
 import Output from "../components/Output/Output";
 import ShowModal from "../components/Modal/ShowModal";
 
-//TODO: set condition for localstorage first time
-
 export default class FormStatefull extends Component {
   state = {
     todoList: [],
     addTodoText: "",
     searchFieldValue: "",
+    errorMessage: "",
     isEditing: false,
     showAllTodos: true,
-    toggleCheckAll: false,
+    toggleCheckAll: true,
     modalIsOpen: false,
-    inputRef: React.createRef()
+    inputRef: React.createRef(),
   };
 
   componentDidMount() {
     this.focusAddTodoField();
+
     if (localStorage.todosData) {
-      this.setState({
-        todoList: JSON.parse(localStorage.getItem("todosData")),
-        showAllTodos: JSON.parse(localStorage.getItem("showAllTodos"))
-      });
+      console.log("PARSIGN");
+      try {
+        this.setState({
+          todoList: JSON.parse(localStorage.getItem("todosData")),
+          showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
+        });
+      } catch (error) {
+        console.table(error);
+        this.setErrorMessage("localStorage");
+      }
     }
   }
   componentDidUpdate() {
+    console.log("update");
     const {
       addTodoText,
       todoList,
       showAllTodos,
       isEditing,
       searching,
-      searchFieldValue
+      searchFieldValue,
+      errorMessage,
     } = this.state;
-
+    //console.log("error", this.state.errorMessage);
     const todosData = JSON.stringify(todoList);
 
     //Optionally create an object for all?...
@@ -54,7 +62,9 @@ export default class FormStatefull extends Component {
       isEditing,
       "searching:",
       searching,
-      searchFieldValue.length
+      searchFieldValue.length,
+      "errorMsg:",
+      errorMessage
     );
   }
   //Gets typed text for add+search fields
@@ -62,7 +72,7 @@ export default class FormStatefull extends Component {
     const name = e.target.name;
     const value = e.target.value;
     this.setState(() => ({
-      [name]: value
+      [name]: value,
     }));
   };
   //AddTodo searchbar
@@ -72,18 +82,17 @@ export default class FormStatefull extends Component {
     const { addTodoText, todoList } = this.state;
     const text = addTodoText;
     //const validText = addTodoText.trim();
-
     const newTodo = {
       id: uuid(),
       title: `${text[0].toUpperCase() + text.substring(1)}  `,
-      isCompleted: false
+      isCompleted: false,
     };
 
     e.preventDefault();
     this.setState({
       todoList: [...todoList, newTodo],
       addTodoText: "",
-      isEditing: false
+      isEditing: false,
     });
   };
 
@@ -94,7 +103,7 @@ export default class FormStatefull extends Component {
       todoList: todoList.map(item => {
         toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false);
         return item;
-      })
+      }),
     });
     this.setState(() => ({ toggleCheckAll: !toggleCheckAll }));
   };
@@ -110,7 +119,7 @@ export default class FormStatefull extends Component {
           item.isCompleted = !item.isCompleted;
         }
         return item;
-      })
+      }),
     });
   };
 
@@ -122,7 +131,7 @@ export default class FormStatefull extends Component {
     }
     this.setState({
       todoList: this.state.todoList.filter(item => item.id !== id),
-      addTodoText: todo[0].title.trim()
+      addTodoText: todo[0].title.trim(),
     });
     this.setState(() => ({ isEditing: !this.state.isEditing }));
     this.focusAddTodoField();
@@ -131,25 +140,32 @@ export default class FormStatefull extends Component {
   //Remove Todos
   removeTodo = id =>
     this.setState({
-      todoList: this.state.todoList.filter(item => item.id !== id)
+      todoList: this.state.todoList.filter(item => item.id !== id),
     });
 
   removeAll = () => {
-    this.toggleModal();
     this.setState(() => ({
-      todoList: this.state.todoList.filter(item => !item)
+      todoList: this.state.todoList.filter(item => !item),
     }));
+    this.toggleModal();
   };
 
   //Modal
   toggleModal = () => {
     this.setState(() => ({
-      modalIsOpen: !this.state.modalIsOpen
+      modalIsOpen: !this.state.modalIsOpen,
     }));
   };
-  showError = () => {
-    console.log("object");
-    return;
+  setErrorMessage = typeOfMsg => {
+    const deleteAll = `You are about to delete ALL your todos. This action is
+              irreversible! Continue?`;
+    const localStorage =
+      "An error has ocurred!! Local storage file may be corrupted.";
+
+    this.setState(() => ({
+      errorMessage: typeOfMsg === "localStorage" ? localStorage : deleteAll,
+    }));
+    this.toggleModal();
   };
   //Render
   render() {
@@ -158,7 +174,7 @@ export default class FormStatefull extends Component {
       todoList,
       showAllTodos,
       toggleCheckAll,
-      searchFieldValue
+      searchFieldValue,
     } = this.state;
 
     const list = todoList
@@ -181,6 +197,7 @@ export default class FormStatefull extends Component {
             isOpen={this.state.modalIsOpen}
             closeModal={this.toggleModal}
             boom={this.removeAll}
+            errorMessage={this.state.errorMessage}
           ></ShowModal>
         }
         <Inputs
@@ -199,7 +216,9 @@ export default class FormStatefull extends Component {
           toggleHideCompleted={this.toggleHideCompleted}
           toggleCheckAll={this.toggleCheckAll}
           toggleCheckAllStatus={toggleCheckAll}
-          openModal={this.toggleModal}
+          //openModal={this.toggleModal}
+          setErrorMessage={this.setErrorMessage}
+          //removeAllTodos={this.removeAll}
         />
       </React.Fragment>
     );
