@@ -69,9 +69,9 @@ const overlayBiggerScreens = {
   },
   content: {
     background: "rgb(48, 47, 47)",
-    top: "35%",
-    left: "32%",
-    right: "32%",
+    top: "25%",
+    left: "31%",
+    right: "31%",
     bottom: "auto%",
     borderColor: "red",
     color: "#cccfcf",
@@ -79,5 +79,4 @@ const overlayBiggerScreens = {
     lineHeight: "3.4rem",
   },
 };
-
 export default ShowModal;

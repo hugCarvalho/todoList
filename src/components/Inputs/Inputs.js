@@ -9,7 +9,7 @@ const Input = React.forwardRef(
     const styleButton = () => {
       return isEditing
         ? {
-            color: "orange"
+            color: "orange",
             //borderColor: "orange"
           }
         : null;
@@ -17,6 +17,7 @@ const Input = React.forwardRef(
     return (
       <>
         <div className="container__inputs">
+          {/* trim() prevents TypeError from appearing in React although app works without it*/}
           <form onSubmit={addTodoText.trim() ? addTodo : null}>
             {/* Add bar */}
             <div className="wrapper__add-todo">

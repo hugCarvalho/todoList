@@ -80,11 +80,11 @@ export default class FormStatefull extends Component {
 
   addTodo = e => {
     const { addTodoText, todoList } = this.state;
-    const text = addTodoText;
-    //const validText = addTodoText.trim();
+    //
+    const validText = addTodoText.trim();
     const newTodo = {
       id: uuid(),
-      title: `${text[0].toUpperCase() + text.substring(1)}  `,
+      title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
       isCompleted: false,
     };
 

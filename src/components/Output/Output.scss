@@ -77,13 +77,15 @@
   .container__todos {
     margin-left: 5%;
     margin-right: 5%;
+    //background-color: pink;
   }
 }
 
 @media (min-width: 992px) {
   .container__todos {
-    margin-left: 22%;
-    margin-right: 22%;
+    margin-left: 15%;
+    margin-right: 15%;
+    //background-color: orange;
   }
   .options-top {
     padding: 12px 14px;
@@ -114,26 +116,5 @@
       rgba(39, 38, 38, 0.58) 83%,
       rgba(20, 20, 20, 0.5) 98%
     );
-    // background: linear-gradient(
-    //   135deg,
-    //   rgba(76, 76, 76, 1) 0%,
-    //   rgba(61, 61, 61, 0.96) 8%,
-    //   rgba(71, 71, 71, 0.88) 23%,
-    //   rgba(44, 44, 44, 0.78) 43%,
-    //   rgba(63, 61, 61, 0.7) 60%,
-    //   rgba(43, 43, 43, 0.62) 76%,
-    //   rgba(61, 61, 61, 0.57) 85%
-    // );
-    // background: linear-gradient(
-    //   135deg,
-    //   rgba(76, 76, 76, 1) 0%,
-    //   rgba(61, 61, 61, 0.96) 8%,
-    //   rgba(71, 71, 71, 0.88) 23%,
-    //   rgba(44, 44, 44, 0.78) 43%,
-    //   rgba(73, 73, 73, 0.7) 60%,
-    //   rgba(43, 43, 43, 0.62) 76%,
-    //   rgba(66, 66, 66, 0.57) 85%,
-    //   rgba(47, 47, 47, 0.5)
-    // );
   }
 }

@@ -127,23 +127,22 @@ input.add-todo,
 }
 
 @media (min-width: 576px) {
-  input.media {
-    background-color: (rgb(209, 48, 48));
+  .wrapper__add-todo {
+    input.add-todo {
+      width: 65%;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper__add-todo {
+    input.add-todo {
+      width: 50%;
+    }
   }
 }
 
 @media (min-width: 992px) {
-  input.media {
-    background-color: (rgb(255, 230, 1));
-  }
-}
-
-@media (min-width: 1140px) {
-  // input.add-todo,
-  // .btn__add-todo {
-  //   margin-top: 35px;
-  //   outline: none;
-  // }
   .container__inputs {
     font-size: 1.5rem;
     box-shadow: 0px 9px 7px 0px rgba(0, 0, 0, 0.39);
