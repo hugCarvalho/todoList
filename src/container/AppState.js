@@ -22,7 +22,6 @@ export default class AppState extends Component {
     this.focusAddTodoField();
 
     if (localStorage.todosData) {
-      console.log("PARSIGN");
       try {
         this.setState({
           todoList: JSON.parse(localStorage.getItem("todosData")),
@@ -88,6 +87,7 @@ export default class AppState extends Component {
     };
 
     e.preventDefault();
+
     this.setState({
       todoList: [...todoList, newTodo],
       addTodoText: "",
@@ -98,6 +98,7 @@ export default class AppState extends Component {
   //Toggle Options
   toggleCheckAll = () => {
     const { todoList, toggleCheckAll } = this.state;
+
     this.setState({
       todoList: todoList.map(item => {
         toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false);
@@ -141,7 +142,6 @@ export default class AppState extends Component {
     this.setState({
       todoList: this.state.todoList.filter(item => item.id !== id),
     });
-
   removeAll = () => {
     this.setState(() => ({
       todoList: this.state.todoList.filter(item => !item),
@@ -166,7 +166,7 @@ export default class AppState extends Component {
     }));
     this.toggleModal();
   };
-  //Render
+
   render() {
     const {
       addTodoText,
@@ -195,8 +195,8 @@ export default class AppState extends Component {
             todoList={list}
             isOpen={this.state.modalIsOpen}
             closeModal={this.toggleModal}
-            boom={this.removeAll}
             errorMessage={this.state.errorMessage}
+            boom={this.removeAll}
           ></ShowModal>
         }
         <Inputs
@@ -215,9 +215,7 @@ export default class AppState extends Component {
           toggleHideCompleted={this.toggleHideCompleted}
           toggleCheckAll={this.toggleCheckAll}
           toggleCheckAllStatus={toggleCheckAll}
-          //openModal={this.toggleModal}
           setErrorMessage={this.setErrorMessage}
-          //removeAllTodos={this.removeAll}
         />
       </React.Fragment>
     );

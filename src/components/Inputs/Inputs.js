@@ -3,8 +3,8 @@ import "./inputs.scss";
 
 //needed for focus behaviour
 const Input = React.forwardRef(
-  ({ addTodoText, addTodo, getTextValue, isEditing, error }, ref) => {
-    const showWarning = () => (addTodoText.trim() ? "valid" : "invalid");
+  ({ addTodoText, addTodo, getTextValue, isEditing }, ref) => {
+    const checkIsValid = () => (addTodoText.trim() ? "valid" : "invalid");
 
     const styleButton = () => {
       return isEditing
@@ -23,7 +23,7 @@ const Input = React.forwardRef(
             <div className="wrapper__add-todo">
               <input
                 type="search"
-                className={`${showWarning()} ${"add-todo"}`}
+                className={`${checkIsValid()} ${"add-todo"}`}
                 placeholder="enter title..."
                 name="addTodoText"
                 value={addTodoText}
