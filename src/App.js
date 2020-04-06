@@ -1,13 +1,14 @@
 import React from "react";
-import "./App.css";
-import FormStatefull from "./container/FormStatefull";
+import "./App.scss";
+import AppState from "./container/AppState";
 import Header from "../src/components/Header/Header";
 
 function App() {
   return (
     <React.Fragment>
       <Header />
-      <FormStatefull />
+      <AppState />
+      {/* <Footer/> */}
     </React.Fragment>
   );
 }

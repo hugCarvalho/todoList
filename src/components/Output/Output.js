@@ -1,5 +1,6 @@
 import React from "react";
 import "./Output.scss";
+import PropTypes from "prop-types";
 
 export default function output({
   todoList,
@@ -83,3 +84,13 @@ export default function output({
     </section>
   );
 }
+
+output.propTypes = {
+  todoList: PropTypes.array,
+  showAllTodos: PropTypes.bool,
+  toggleHideCompleted: PropTypes.func,
+  toggleCheckAll: PropTypes.func,
+  toggleCheckAllStatus: PropTypes.bool,
+  setErrorMessage: PropTypes.func,
+  searchFieldValue: PropTypes.string,
+};

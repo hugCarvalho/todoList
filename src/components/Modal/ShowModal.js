@@ -59,7 +59,7 @@ const overlay = {
     left: "12%",
     right: "12%",
     bottom: "auto%",
-    borderColor: "red",
+    borderColor: "#ff0000",
     color: "#cccfcf",
   },
 };
@@ -73,7 +73,7 @@ const overlayBiggerScreens = {
     left: "31%",
     right: "31%",
     bottom: "auto%",
-    borderColor: "red",
+    borderColor: "#ff0000",
     color: "#cccfcf",
     fontSize: "2.1rem",
     lineHeight: "3.4rem",

@@ -5,7 +5,7 @@ import Inputs from "../components/Inputs/Inputs";
 import Output from "../components/Output/Output";
 import ShowModal from "../components/Modal/ShowModal";
 
-export default class FormStatefull extends Component {
+export default class AppState extends Component {
   state = {
     todoList: [],
     addTodoText: "",
@@ -35,7 +35,6 @@ export default class FormStatefull extends Component {
     }
   }
   componentDidUpdate() {
-    console.log("update");
     const {
       addTodoText,
       todoList,

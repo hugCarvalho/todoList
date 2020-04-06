@@ -1,7 +1,7 @@
-@import "../../index.scss";
-
+//@import "../../index.scss";
+@import "../../App.scss";
 .todo-item {
-  background-color: $sBlack;
+  background-color: $mBlack;
   color: $lGray;
   display: flex;
   align-items: center;

@@ -1,4 +1,5 @@
-@import "../../index.scss";
+@import "../../App.scss";
+//@import "../../index.scss";
 
 .container__inputs {
   font-size: 1.3rem;
@@ -6,10 +7,10 @@
   box-shadow: 0px 5px 7px 0px rgba(0, 0, 0, 0.39);
 }
 
-input.search-todo,
-input.add-todo,
+input,
 .btn__add-todo,
 .fa-search {
+  background-color: $lGray;
   height: 1.9rem;
   color: $dGray;
 }
@@ -26,8 +27,7 @@ input.add-todo,
   justify-content: center;
   padding-bottom: 6px;
 
-  input.add-todo {
-    background-color: $lGray;
+  input {
     width: 65%;
     display: flex;
     justify-content: center;
@@ -36,27 +36,22 @@ input.add-todo,
     padding-left: 0.4rem;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
-    //border: 1px inset $pGray;
-    border: 1px inset $pWhite;
+    border: 1px inset $mWhite;
     transition: all 0.5s;
-
     &:focus {
       outline: none;
-      background-color: $darkerWhite;
-      box-shadow: 0px -1px 4px $pWhite;
+      background-color: $brighterWhite;
+      box-shadow: 0px -1px 4px $mWhite;
     }
   }
-
   .invalid:focus {
-    border-bottom: 1px solid rgb(200, 58, 58);
+    border-bottom: 1px solid #c83a3a;
   }
-
   input.add-todo.valid:focus {
     border-right: none;
-    border: 1px solid $pGreen;
-    box-shadow: 0px 0px 4px $pWhite;
+    border: 1px solid $lGreen;
+    box-shadow: 0px 0px 4px $mWhite;
   }
-
   button {
     background-color: rgb(0, 0, 0);
     display: flex;
@@ -64,8 +59,8 @@ input.add-todo,
     font-weight: 500;
     line-height: 0.9rem;
     letter-spacing: 0.6px;
-    color: $pGreen;
-    border: 1px solid $pGreen;
+    color: $lGreen;
+    border: 1px solid $lGreen;
     border-left: none;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -81,18 +76,13 @@ input.add-todo,
   }
 }
 
-//Search input
+//Search
 .wrapper__search-todo {
-  position: relative;
   height: 6.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  input.search-todo,
-  .fa-search {
-    background-color: $lGray;
-  }
   //Search bar
   input {
     width: 35%;
@@ -100,16 +90,16 @@ input.add-todo,
     padding-left: 0.4rem;
     font-size: inherit;
     border-left: none;
-    border-color: $pWhite;
+    border-color: $mWhite;
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
     transition: all 0.5s;
 
     &:focus {
-      background-color: $darkerWhite;
+      background-color: $brighterWhite;
       width: 45%;
       outline: none;
-      box-shadow: 0px 0px 5px $pWhite;
+      box-shadow: 0px 0px 5px $mWhite;
     }
   }
   .fa-search {
@@ -119,7 +109,7 @@ input.add-todo,
     height: 2rem;
     line-height: 1.7rem; //achtung
     color: $b;
-    border: 2px inset $pWhite;
+    border: 2px inset $mWhite;
     border-right: none;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;

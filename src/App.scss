@@ -1,0 +1,27 @@
+button {
+  padding: 1px 4px;
+  cursor: pointer;
+}
+
+button:focus {
+  //opacity: 1;
+  outline: none;
+}
+//Colors: m = main s = secondary l = light d= dark
+
+$mWhite: #fff;
+$brighterWhite: #ecf2f3;
+$pGray: #ececec;
+$lGray: #cccfcf;
+$lGray2: #b0b4aa;
+$b: #5e5b5b;
+$mGray: #302f2f;
+$dGray: #2a2828;
+$mBlack: #22221d;
+$lBlack: #2a2929;
+
+$lRed: #ff0000;
+$dPink: #8f4545;
+
+$lGreen: #9acd32;
+$pGreen: #82b340;

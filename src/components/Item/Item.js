@@ -1,18 +1,19 @@
 import React from "react";
 import "./Item.scss";
+import PropTypes from "prop-types";
 
 export default function Item({
   todoTitle,
   toggleTodoCompleted,
   isCompleted,
   editTodo,
-  removeTodo
+  removeTodo,
 }) {
   const styleCompleted = () =>
     isCompleted
       ? {
           color: "gray",
-          textDecoration: "line-through"
+          textDecoration: "line-through",
         }
       : null;
 
@@ -45,3 +46,11 @@ export default function Item({
     </li>
   );
 }
+
+Item.propTypes = {
+  todoTitle: PropTypes.string,
+  toggleTodoCompleted: PropTypes.func,
+  isCompleted: PropTypes.bool,
+  editTodo: PropTypes.func,
+  removeTodo: PropTypes.func,
+};

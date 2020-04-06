@@ -1,22 +1,20 @@
 @import "../../index.scss";
+@import "../../App.scss";
 
+h2 {
+  color: $lRed;
+}
+//btns for "delete all" option
 .btn {
   margin: 13px 0;
   padding: 3px;
-  color: gray;
-  color: #7a7a7a;
+  margin-right: 8px;
   color: $b;
-  border: 1px solid gray;
+  border: 1px solid #808080;
   &:hover {
     transform: scale(1.1);
   }
   border-radius: 3px;
 }
 
-.modal-cancell {
-  margin-right: 8px;
-}
-
-h2 {
-  color: red;
-}
+//main formatting is done in showModal.js
