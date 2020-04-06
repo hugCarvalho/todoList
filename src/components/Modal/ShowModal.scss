@@ -1,8 +1,10 @@
 @import "../../index.scss";
 @import "../../App.scss";
 
+//Note: main formatting is done in showModal.js
+
 h2 {
-  color: $lRed;
+  color: $sRed;
 }
 //btns for "delete all" option
 .btn {
@@ -16,5 +18,3 @@ h2 {
   }
   border-radius: 3px;
 }
-
-//main formatting is done in showModal.js

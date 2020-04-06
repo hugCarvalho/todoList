@@ -1,8 +1,8 @@
-//@import "../../index.scss";
 @import "../../App.scss";
 
 .container__todos {
   padding: 6px;
+
   //Icons in options bar
   button {
     background-color: transparent;
@@ -19,7 +19,7 @@
   }
 }
 .options-top {
-  background-color: $lBlack;
+  background-color: #2a2929;
   padding: 4px 3px;
   display: flex;
   justify-content: space-between;
@@ -35,7 +35,7 @@
   }
   .btn__toggle-completed {
     padding: 2px;
-    color: $brighterWhite;
+    color: $sWhite;
     border-radius: 2px;
     &:hover,
     &:focus {
@@ -43,10 +43,10 @@
     }
   }
   button.delete {
-    color: $dPink;
+    color: $mRed;
     &:hover,
     &:focus {
-      color: $lRed;
+      color: $sRed;
       opacity: 1;
     }
   }

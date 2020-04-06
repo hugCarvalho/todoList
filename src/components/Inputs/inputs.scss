@@ -39,7 +39,7 @@ input.add-todo,
     transition: all 0.5s;
     &:focus {
       outline: none;
-      background-color: $brighterWhite;
+      background-color: $sWhite;
       box-shadow: 0px -1px 4px $mWhite;
     }
   }
@@ -48,7 +48,7 @@ input.add-todo,
   }
   input.add-todo.valid:focus {
     border-right: none;
-    border: 1px solid $lGreen;
+    border: 1px solid $mGreen;
     box-shadow: 0px 0px 4px $mWhite;
   }
   button {
@@ -58,8 +58,8 @@ input.add-todo,
     font-weight: 500;
     line-height: 0.9rem;
     letter-spacing: 0.6px;
-    color: $lGreen;
-    border: 1px solid $lGreen;
+    color: $mGreen;
+    border: 1px solid $mGreen;
     border-left: none;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -94,7 +94,7 @@ input.add-todo,
     border-top-right-radius: 8px;
     transition: all 0.5s;
     &:focus {
-      background-color: $brighterWhite;
+      background-color: $sWhite;
       width: 45%;
       outline: none;
       box-shadow: 0px 0px 5px $mWhite;
