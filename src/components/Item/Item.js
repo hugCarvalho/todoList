@@ -21,12 +21,13 @@ export default function Item({
     <li className="todo-item">
       <div className="wrapper__checkbox-title">
         <label>
-          {/* Check/Uncheck */}
+          {/* Check/Uncheck box */}
           <input
             type="checkbox"
             onChange={toggleTodoCompleted}
             checked={isCompleted ? true : false}
           />
+          {/* Render Todo completed or not */}
           <span style={styleCompleted()}>{todoTitle}</span>
         </label>
       </div>

@@ -13,7 +13,7 @@ export default class AppState extends Component {
     errorMessage: "",
     isEditing: false,
     showAllTodos: true,
-    toggleCheckAll: true,
+    toggleCheckAll: false,
     modalIsOpen: false,
     inputRef: React.createRef(),
   };
@@ -43,7 +43,7 @@ export default class AppState extends Component {
       searchFieldValue,
       errorMessage,
     } = this.state;
-    //console.log("error", this.state.errorMessage);
+
     const todosData = JSON.stringify(todoList);
 
     //Optionally create an object for all?...
@@ -78,7 +78,7 @@ export default class AppState extends Component {
 
   addTodo = e => {
     const { addTodoText, todoList } = this.state;
-    //
+    //trim(): if removed input text with white spaces doesn't get capitalized
     const validText = addTodoText.trim();
     const newTodo = {
       id: uuid(),
@@ -101,7 +101,9 @@ export default class AppState extends Component {
 
     this.setState({
       todoList: todoList.map(item => {
-        toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false);
+        !toggleCheckAll
+          ? (item.isCompleted = true)
+          : (item.isCompleted = false);
         return item;
       }),
     });

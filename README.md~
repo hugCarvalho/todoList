@@ -1,8 +1,30 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# TODO APP 
+This project was bootstrapped with [Create React App]
 
-## Available Scripts
+## Project Specifications 
 
-In the project directory, you can run:
+- Built with React styled with SASS
+  
+### React specifics: 
+- Ref forwarding / Modal / PropTypes
+
+## App functionalities 
+
+- Add / Edit / Delete a todo
+- Search for a todo 
+- Delete All todos
+- Check / uncheck All 
+- Show / Hide completed
+- Save to local storage
+
++ Verification: 
+- check for empty title
+- display different message for "empty list" or "no match found"
+- check for valid local storage file
+
+#
+@Author: 
+Hugo Carvalho
 
 ### `npm start`
 

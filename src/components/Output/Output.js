@@ -8,9 +8,7 @@ export default function output({
   toggleHideCompleted,
   toggleCheckAll,
   toggleCheckAllStatus,
-  //openModal,
   setErrorMessage,
-  //removeAllTodos,
   searchFieldValue,
 }) {
   const filteredSearchList = todoList.filter(item => {
@@ -21,7 +19,7 @@ export default function output({
   const notCompletedList = filteredSearchList.filter(
     item => !item.props.isCompleted
   );
-  //Set classes for styling with css
+  //Set class for styling with css
   const toggleHideCompletedClasses = () =>
     showAllTodos ? "show-completed" : " hide-completed";
 
@@ -36,13 +34,13 @@ export default function output({
   return (
     <section className="container__todos">
       <div className="options-top">
-        {/* Toggle completed / not completed */}
+        {/* Toggle completed/not completed */}
         <button
           type="button"
           className="btn__toggle-completed"
           onClick={toggleCheckAll}
         >
-          {toggleCheckAllStatus ? (
+          {!toggleCheckAllStatus ? (
             <i className="far fa-check-square" title="check all"></i>
           ) : (
             <i className="far fa-square" title="uncheck all"></i>
@@ -58,7 +56,6 @@ export default function output({
           {/* {showAllTodos ? ( */}
           <span title="hide completed">
             <i className="far fa-eye-slash"> completed</i>{" "}
-            {/*TODO: check font size and type*/}
           </span>
         </button>
 
@@ -66,7 +63,6 @@ export default function output({
         <button
           className="delete"
           type="button"
-          //onClick={openModal}
           onClick={() => setErrorMessage("deleteAll")}
           title="delete all"
         >
