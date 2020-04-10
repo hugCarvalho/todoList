@@ -30,6 +30,7 @@ const Input = React.forwardRef(
                 onChange={getTextValue}
                 ref={ref}
                 autoComplete="off"
+                required
               />
               <button
                 type="submit"

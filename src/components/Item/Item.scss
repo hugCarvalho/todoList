@@ -26,14 +26,13 @@
   }
   span {
     padding-left: 8px;
-    word-break: break-all;
   }
 }
 
 .wrapper__edit-delete {
   .btn__edit {
     color: $mGreen;
-    margin-right: 8px;
+    margin-right: 11px;
     opacity: 0.5;
     &:hover,
     &:focus {
