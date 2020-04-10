@@ -2,7 +2,7 @@
 
 ## Project Specifications
 
-- Built with React styled with SASS
+- Built with React, styled with SASS
 
 #### React specifics:
 
