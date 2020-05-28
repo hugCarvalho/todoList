@@ -37,7 +37,7 @@ const Input = React.forwardRef(
                 className="btn__add-todo"
                 style={styleButton()}
               >
-                {isEditing ? "Edit" : "Add"}
+                <span className="btn-text">{isEditing ? "Edit" : "Add"}</span>
               </button>
             </div>
 

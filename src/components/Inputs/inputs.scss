@@ -54,9 +54,9 @@ input.add-todo,
   button {
     background-color: rgb(0, 0, 0);
     display: flex;
+    align-self: center;
     padding: 4px 6px;
     font-weight: 500;
-    line-height: 0.9rem;
     letter-spacing: 0.6px;
     color: $mGreen;
     border: 1px solid $mGreen;
@@ -65,6 +65,10 @@ input.add-todo,
     border-bottom-right-radius: 6px;
     text-transform: uppercase;
     opacity: 0.8;
+    .btn-text {
+      display: flex;
+      align-self: center;
+    }
   }
   button:hover {
     cursor: pointer;

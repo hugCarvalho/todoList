@@ -2,11 +2,12 @@
 
 ## Project Specifications
 
-- Built with React, styled with SASS
+- Built using React, styled using SASS(scss)
+- Responsive
 
 #### React specifics:
 
-- Ref forwarding / Modal / PropTypes
+- Ref forwarding / React-modal / PropTypes
 
 ## App functionalities
 
@@ -18,7 +19,6 @@
 - Save to local storage
 
   Verification:
-
 - check for empty title or empty spaces
 - display different message for "empty list" or "no match found"
 - check for valid local storage file
