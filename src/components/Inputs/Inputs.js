@@ -1,7 +1,7 @@
 import React from "react";
 import "./inputs.scss";
 
-//needed for focus behaviour
+//needed for automatic focus behaviour
 const Input = React.forwardRef(
   ({ addTodoText, addTodo, getTextValue, isEditing }, ref) => {
     const checkIsValid = () => (addTodoText.trim() ? "valid" : "invalid");
@@ -10,7 +10,6 @@ const Input = React.forwardRef(
       return isEditing
         ? {
             color: "orange",
-            //borderColor: "orange"
           }
         : null;
     };

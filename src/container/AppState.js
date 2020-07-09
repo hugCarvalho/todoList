@@ -33,35 +33,11 @@ export default class AppState extends Component {
     }
   }
   componentDidUpdate() {
-    const {
-      // addTodoText,
-      todoList,
-      showAllTodos,
-      // isEditing,
-      // searching,
-      // searchFieldValue,
-      // errorMessage,
-    } = this.state;
+    const { todoList, showAllTodos } = this.state;
 
     const todosData = JSON.stringify(todoList);
-
     localStorage.setItem("todosData", todosData);
     localStorage.setItem("showAllTodos", JSON.stringify(showAllTodos));
-
-    //For control only, delete once app is done
-    // console.log(
-    //   "UPDATE",
-    //   addTodoText,
-    //   todoList,
-    //   showAllTodos,
-    //   "isEditing:",
-    //   isEditing,
-    //   "searching:",
-    //   searching,
-    //   searchFieldValue.length,
-    //   "errorMsg:",
-    //   errorMessage
-    // );
   }
   //Gets typed text for add+search fields
   enteredTextHandler = e => {
