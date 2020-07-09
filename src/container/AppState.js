@@ -28,42 +28,40 @@ export default class AppState extends Component {
           showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
         });
       } catch (error) {
-        console.table(error);
         this.setErrorMessage("localStorage");
       }
     }
   }
   componentDidUpdate() {
     const {
-      addTodoText,
+      // addTodoText,
       todoList,
       showAllTodos,
-      isEditing,
-      searching,
-      searchFieldValue,
-      errorMessage,
+      // isEditing,
+      // searching,
+      // searchFieldValue,
+      // errorMessage,
     } = this.state;
 
     const todosData = JSON.stringify(todoList);
 
-    //Optionally create an object for all?...
     localStorage.setItem("todosData", todosData);
     localStorage.setItem("showAllTodos", JSON.stringify(showAllTodos));
 
     //For control only, delete once app is done
-    console.log(
-      "UPDATE",
-      addTodoText,
-      todoList,
-      showAllTodos,
-      "isEditing:",
-      isEditing,
-      "searching:",
-      searching,
-      searchFieldValue.length,
-      "errorMsg:",
-      errorMessage
-    );
+    // console.log(
+    //   "UPDATE",
+    //   addTodoText,
+    //   todoList,
+    //   showAllTodos,
+    //   "isEditing:",
+    //   isEditing,
+    //   "searching:",
+    //   searching,
+    //   searchFieldValue.length,
+    //   "errorMsg:",
+    //   errorMessage
+    // );
   }
   //Gets typed text for add+search fields
   enteredTextHandler = e => {

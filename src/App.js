@@ -8,7 +8,6 @@ function App() {
     <React.Fragment>
       <Header />
       <AppState />
-      {/* <Footer/> */}
     </React.Fragment>
   );
 }
