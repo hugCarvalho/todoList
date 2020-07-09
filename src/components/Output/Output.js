@@ -50,6 +50,7 @@ export default function output({
         {/* Hide or show completed */}
         <button
           type="button"
+          aria-label="show or hide completed"
           onClick={toggleHideCompleted}
           className={toggleHideCompletedClasses()}
         >

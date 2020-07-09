@@ -20,10 +20,14 @@ const Input = React.forwardRef(
           <form onSubmit={addTodoText.trim() ? addTodo : null}>
             {/* Add bar */}
             <div className="wrapper__add-todo">
+              <label style={forAccessibilityReasons} htmlFor="add-edit-bar">
+                add or edit a todo
+              </label>
               <input
+                id="add-edit-bar"
                 type="search"
                 className={`${checkIsValid()} ${"add-todo"}`}
-                placeholder="enter title..."
+                placeholder="enter name or description..."
                 name="addTodoText"
                 value={addTodoText}
                 onChange={getTextValue}
@@ -43,7 +47,11 @@ const Input = React.forwardRef(
             {/* Search bar */}
             <div className="wrapper__search-todo">
               <i className="fas fa-search"></i>
+              <label style={forAccessibilityReasons} htmlFor="search-bar">
+                search for a todo
+              </label>
               <input
+                id="search-bar"
                 type="search"
                 className="search-todo"
                 placeholder="search..."
@@ -58,5 +66,11 @@ const Input = React.forwardRef(
     );
   }
 );
+
+const forAccessibilityReasons = {
+  color: "transparent",
+  position: "absolute",
+  marginLeft: "-9999px",
+};
 
 export default Input;
