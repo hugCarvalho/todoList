@@ -6,7 +6,6 @@ import Header from "../src/components/Header/Header";
 function App() {
   return (
     <React.Fragment>
-      <Header />
       <AppState />
     </React.Fragment>
   );
