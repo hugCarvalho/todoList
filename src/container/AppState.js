@@ -149,12 +149,20 @@ export default class AppState extends Component {
 
   //Edit todos
   editTodo = id => {
-    const todo = this.state.todoList.filter(item => item.id === id)
+    let todo = []
+    if (this.state.listName === "todo") {
+      todo = this.state.todoList.filter(item => item.id === id)
+    } else {
+      todo = this.state.travelList.filter(item => item.id === id)
+    }
+
     if (this.state.isEditing) {
       return
     }
+
     this.setState({
       todoList: this.state.todoList.filter(item => item.id !== id),
+      travelList: this.state.travelList.filter(item => item.id !== id),
       addTodoText: todo[0].title.trim(),
     })
     this.setState(() => ({ isEditing: !this.state.isEditing }))
