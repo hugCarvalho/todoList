@@ -24,27 +24,15 @@ export default class AppState extends Component {
   componentDidMount() {
     this.focusAddTodoField()
 
-    if (this.state.listName === "todo") {
-      if (localStorage.todosData) {
-        try {
-          this.setState({
-            todoList: JSON.parse(localStorage.getItem("todosData")),
-            showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
-          })
-        } catch (error) {
-          this.setErrorMessage("localStorage")
-        }
-      }
-    } else {
-      if (localStorage.travelData) {
-        try {
-          this.setState({
-            travelList: JSON.parse(localStorage.getItem("travelData")),
-            showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
-          })
-        } catch (error) {
-          this.setErrorMessage("localStorage")
-        }
+    if (localStorage.todosData || localStorage.travelData) {
+      try {
+        this.setState({
+          todoList: JSON.parse(localStorage.getItem("todosData")),
+          travelList: JSON.parse(localStorage.getItem("travelData")),
+          showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
+        })
+      } catch (error) {
+        this.setErrorMessage("localStorage")
       }
     }
   }
@@ -101,30 +89,62 @@ export default class AppState extends Component {
 
   //Toggle Options
   toggleCheckAll = () => {
-    const { todoList, toggleCheckAll } = this.state
-
-    this.setState({
-      todoList: todoList.map(item => {
-        !toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false)
-        return item
-      }),
-    })
-    this.setState(() => ({ toggleCheckAll: !toggleCheckAll }))
+    const { todoList, travelList, toggleCheckAll } = this.state
+    if (this.state.listName === "todo") {
+      this.setState({
+        todoList: todoList.map(item => {
+          !toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false)
+          return item
+        }),
+      })
+      this.setState(() => ({ toggleCheckAll: !toggleCheckAll }))
+    } else {
+      this.setState({
+        travelList: travelList.map(item => {
+          !toggleCheckAll ? (item.isCompleted = true) : (item.isCompleted = false)
+          return item
+        }),
+      })
+      this.setState(() => ({ toggleCheckAll: !toggleCheckAll }))
+    }
   }
 
   toggleHideCompleted = () =>
     this.setState(() => ({ showAllTodos: !this.state.showAllTodos }))
 
-  toggleTodoCompleted = id => {
-    const { todoList } = this.state
-    this.setState({
-      todoList: todoList.map(item => {
-        if (item.id === id) {
-          item.isCompleted = !item.isCompleted
-        }
-        return item
-      }),
-    })
+  toggleTodoCompleted = (id, listName) => {
+    const { todoList, travelList } = this.state
+    if (listName === "todo") {
+      this.setState({
+        todoList: todoList.map(item => {
+          console.log(
+            "%cAppState.js line:111 item.id, id",
+            "color: white; background-color: #007acc;",
+            item.id,
+            id
+          )
+          if (item.id === id) {
+            item.isCompleted = !item.isCompleted
+          }
+          return item
+        }),
+      })
+    } else {
+      this.setState({
+        travelList: travelList.map(item => {
+          console.log(
+            "%cAppState.js line:126 item.id, id",
+            "color: white; background-color: #26bfa5;",
+            item.id,
+            id
+          )
+          if (item.id === id) {
+            item.isCompleted = !item.isCompleted
+          }
+          return item
+        }),
+      })
+    }
   }
 
   //Edit todos
@@ -145,12 +165,19 @@ export default class AppState extends Component {
   removeTodo = id =>
     this.setState({
       todoList: this.state.todoList.filter(item => item.id !== id),
+      travelList: this.state.travelList.filter(item => item.id !== id),
     })
   removeAll = () => {
-    this.setState(() => ({
-      todoList: this.state.todoList.filter(item => !item),
-    }))
-    this.toggleModal()
+    if (this.state.listName === "todo") {
+      this.setState(() => ({
+        todoList: this.state.todoList.filter(item => !item),
+      }))
+      this.toggleModal()
+    } else {
+      this.setState(() => ({
+        travelList: this.state.travelList.filter(item => !item),
+      }))
+    }
   }
 
   //Modal
@@ -187,13 +214,13 @@ export default class AppState extends Component {
       searchFieldValue,
     } = this.state
 
-    const list = todoList
+    const listTodo = todoList
       .map(item => (
         <Item
           key={item.id}
           todoTitle={item.title}
           isCompleted={item.isCompleted}
-          toggleTodoCompleted={() => this.toggleTodoCompleted(item.id)}
+          toggleTodoCompleted={() => this.toggleTodoCompleted(item.id, listName)}
           removeTodo={() => this.removeTodo(item.id)}
           editTodo={() => this.editTodo(item.id)}
         />
@@ -205,7 +232,7 @@ export default class AppState extends Component {
           key={item.id}
           todoTitle={item.title}
           isCompleted={item.isCompleted}
-          toggleTodoCompleted={() => this.toggleTodoCompleted(item.id)}
+          toggleTodoCompleted={() => this.toggleTodoCompleted(item.id, listName)}
           removeTodo={() => this.removeTodo(item.id)}
           editTodo={() => this.editTodo(item.id)}
         />
@@ -222,7 +249,7 @@ export default class AppState extends Component {
       <React.Fragment>
         {
           <ShowModal
-            todoList={list}
+            list={listName === "todo" ? listTodo : listTravel}
             isOpen={this.state.modalIsOpen}
             closeModal={this.toggleModal}
             errorMessage={this.state.errorMessage}
@@ -239,7 +266,7 @@ export default class AppState extends Component {
           error={this.showError}
         />
         <Output
-          todoList={listName === "todo" ? list : listTravel}
+          list={listName === "todo" ? listTodo : listTravel}
           travelList={travelList}
           showAllTodos={showAllTodos}
           searchFieldValue={searchFieldValue}

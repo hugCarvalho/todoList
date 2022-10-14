@@ -13,7 +13,7 @@ function ShowModal(props) {
         onRequestClose={props.closeModal}
       >
         {/* Local Storage msg */}
-        {props.todoList.length < 1 &&
+        {props.list.length < 1 &&
         !props.errorMessage.includes("storage") ? (
           <p>There is nothing to delete...</p>
         ) : (

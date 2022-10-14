@@ -3,7 +3,7 @@ import "./Output.scss";
 import PropTypes from "prop-types";
 
 export default function output({
-  todoList,
+  list,
   showAllTodos,
   toggleHideCompleted,
   toggleCheckAll,
@@ -11,7 +11,7 @@ export default function output({
   setErrorMessage,
   searchFieldValue,
 }) {
-  const filteredSearchList = todoList.filter(item => {
+  const filteredSearchList = list.filter(item => {
     return item.props.todoTitle
       .toLowerCase()
       .includes(searchFieldValue.toLowerCase());
@@ -24,7 +24,7 @@ export default function output({
     showAllTodos ? "show-completed" : " hide-completed";
 
   const showListIsEmptyMessage = () => {
-    return !todoList.length ? (
+    return !list.length ? (
       <p>Emptieness...</p>
     ) : !filteredSearchList.length ? (
       <p>No match found!</p>
@@ -83,7 +83,7 @@ export default function output({
 }
 
 output.propTypes = {
-  todoList: PropTypes.array,
+  list: PropTypes.array,
   showAllTodos: PropTypes.bool,
   toggleHideCompleted: PropTypes.func,
   toggleCheckAll: PropTypes.func,
