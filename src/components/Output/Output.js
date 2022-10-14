@@ -38,9 +38,9 @@ export default function output({
         <button
           type="button"
           className="btn__toggle-completed"
-          onClick={toggleCheckAll}
-        >
-          {!toggleCheckAllStatus ? (
+          onClick={toggleCheckAll}>
+          {
+            !toggleCheckAllStatus ? (
             <i className="far fa-check-square" title="check all"></i>
           ) : (
             <i className="far fa-square" title="uncheck all"></i>

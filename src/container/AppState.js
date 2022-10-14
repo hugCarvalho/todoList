@@ -10,6 +10,7 @@ export default class AppState extends Component {
   state = {
     listName: "todo",
     todoList: [],
+    travelList: [],
     addTodoText: "",
     searchFieldValue: "",
     errorMessage: "",
@@ -23,23 +24,42 @@ export default class AppState extends Component {
   componentDidMount() {
     this.focusAddTodoField()
 
-    if (localStorage.todosData) {
-      try {
-        this.setState({
-          todoList: JSON.parse(localStorage.getItem("todosData")),
-          showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
-        })
-      } catch (error) {
-        this.setErrorMessage("localStorage")
+    if (this.state.listName === "todo") {
+      if (localStorage.todosData) {
+        try {
+          this.setState({
+            todoList: JSON.parse(localStorage.getItem("todosData")),
+            showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
+          })
+        } catch (error) {
+          this.setErrorMessage("localStorage")
+        }
+      }
+    } else {
+      if (localStorage.travelData) {
+        try {
+          this.setState({
+            travelList: JSON.parse(localStorage.getItem("travelData")),
+            showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
+          })
+        } catch (error) {
+          this.setErrorMessage("localStorage")
+        }
       }
     }
   }
-  componentDidUpdate() {
-    const { todoList, showAllTodos } = this.state
 
-    const todosData = JSON.stringify(todoList)
-    localStorage.setItem("todosData", todosData)
-    localStorage.setItem("showAllTodos", JSON.stringify(showAllTodos))
+  componentDidUpdate() {
+    const { todoList, travelList, showAllTodos } = this.state
+    if (this.state.listName === "todo") {
+      const todosData = JSON.stringify(todoList)
+      localStorage.setItem("todosData", todosData)
+      localStorage.setItem("showAllTodos", JSON.stringify(showAllTodos))
+    } else {
+      const travelData = JSON.stringify(travelList)
+      localStorage.setItem("travelData", travelData)
+      localStorage.setItem("showAllTodos", JSON.stringify(showAllTodos))
+    }
   }
   //Gets typed text for add+search fields
   enteredTextHandler = e => {
@@ -53,7 +73,7 @@ export default class AppState extends Component {
   focusAddTodoField = () => this.state.inputRef.current.focus()
 
   addTodo = e => {
-    const { addTodoText, todoList } = this.state
+    const { addTodoText, todoList, travelList } = this.state
     //trim(): if removed input text with white spaces doesn't get capitalized
     const validText = addTodoText.trim()
     const newTodo = {
@@ -64,11 +84,19 @@ export default class AppState extends Component {
 
     e.preventDefault()
 
-    this.setState({
-      todoList: [...todoList, newTodo],
-      addTodoText: "",
-      isEditing: false,
-    })
+    if (this.state.listName === "todo") {
+      this.setState({
+        todoList: [...todoList, newTodo],
+        addTodoText: "",
+        isEditing: false,
+      })
+    } else {
+      this.setState({
+        travelList: [...travelList, newTodo],
+        addTodoText: "",
+        isEditing: false,
+      })
+    }
   }
 
   //Toggle Options
@@ -153,6 +181,7 @@ export default class AppState extends Component {
       listName,
       addTodoText,
       todoList,
+      travelList,
       showAllTodos,
       toggleCheckAll,
       searchFieldValue,
@@ -170,6 +199,25 @@ export default class AppState extends Component {
         />
       ))
       .sort((a, b) => (a.props.isCompleted < b.props.isCompleted ? -1 : 1))
+    const listTravel = travelList
+      .map(item => (
+        <Item
+          key={item.id}
+          todoTitle={item.title}
+          isCompleted={item.isCompleted}
+          toggleTodoCompleted={() => this.toggleTodoCompleted(item.id)}
+          removeTodo={() => this.removeTodo(item.id)}
+          editTodo={() => this.editTodo(item.id)}
+        />
+      ))
+      .sort((a, b) => (a.props.isCompleted < b.props.isCompleted ? -1 : 1))
+
+    console.log(
+      "%cAppState.js line:194 this.state.listName",
+      "color: white; background-color: #007acc;",
+      this.state.listName
+    )
+
     return (
       <React.Fragment>
         {
@@ -191,7 +239,8 @@ export default class AppState extends Component {
           error={this.showError}
         />
         <Output
-          todoList={list}
+          todoList={listName === "todo" ? list : listTravel}
+          travelList={travelList}
           showAllTodos={showAllTodos}
           searchFieldValue={searchFieldValue}
           toggleHideCompleted={this.toggleHideCompleted}
