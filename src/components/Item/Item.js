@@ -18,7 +18,7 @@ export default function Item({
       : null;
 
   return (
-    <li className="todo-item">
+    <li className="todo-item" onClick={toggleTodoCompleted}>
       <div className="wrapper__checkbox-title">
         <label>
           {/* Check/Uncheck box */}
@@ -34,13 +34,19 @@ export default function Item({
 
       <div className="wrapper__edit-delete">
         {/* Edit */}
-        <span onClick={editTodo}>
+        <span onClick={(e) => {
+          e.stopPropagation()
+          editTodo()
+        }}>
           <button title="edit" className="btn__edit">
             <i className="fas fa-edit"></i>
           </button>
         </span>
         {/* Delete */}
-        <button onClick={removeTodo} title="delete" className="btn__delete">
+        <button onClick={(e) => {
+          e.stopPropagation()
+          removeTodo()
+        }} title="delete" className="btn__delete">
           <i className="fas fa-trash"></i>
         </button>
       </div>

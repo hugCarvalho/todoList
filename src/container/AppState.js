@@ -5,12 +5,26 @@ import Inputs from "../components/Inputs/Inputs"
 import Output from "../components/Output/Output"
 import ShowModal from "../components/Modal/ShowModal"
 import Header from "../components/Header/Header"
+import { hardcodedTravelData } from "../data/travelData"
+
+const travelListHardcodedData = [
+  {
+    id: "ac2945e5-9248-4354-9f0d-3df053ff6eb7",
+    title: "Id & passport",
+    isCompleted: false,
+  },
+  {
+    id: "16eeb49a-6fa1-4dc4-93df-3a381c590519",
+    title: "Boarding pass",
+    isCompleted: false,
+  },
+]
 
 export default class AppState extends Component {
   state = {
     listName: "todo",
     todoList: [],
-    travelList: [],
+    travelList: hardcodedTravelData,
     addTodoText: "",
     searchFieldValue: "",
     errorMessage: "",
@@ -24,10 +38,19 @@ export default class AppState extends Component {
   componentDidMount() {
     this.focusAddTodoField()
 
-    if (localStorage.todosData || localStorage.travelData) {
+    if (localStorage.todosData) {
       try {
         this.setState({
           todoList: JSON.parse(localStorage.getItem("todosData")),
+          showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
+        })
+      } catch (error) {
+        this.setErrorMessage("localStorage")
+      }
+    }
+    if (localStorage.travelData) {
+      try {
+        this.setState({
           travelList: JSON.parse(localStorage.getItem("travelData")),
           showAllTodos: JSON.parse(localStorage.getItem("showAllTodos")),
         })
@@ -61,16 +84,15 @@ export default class AppState extends Component {
   focusAddTodoField = () => this.state.inputRef.current.focus()
 
   addTodo = e => {
+    e.preventDefault()
     const { addTodoText, todoList, travelList } = this.state
     //trim(): if removed input text with white spaces doesn't get capitalized
     const validText = addTodoText.trim()
     const newTodo = {
       id: uuid(),
-      title: `${validText[0].toUpperCase() + validText.substring(1)}  `,
+      title: `${validText[0].toUpperCase() + validText.substring(1)}`,
       isCompleted: false,
     }
-
-    e.preventDefault()
 
     if (this.state.listName === "todo") {
       this.setState({
@@ -117,12 +139,6 @@ export default class AppState extends Component {
     if (listName === "todo") {
       this.setState({
         todoList: todoList.map(item => {
-          console.log(
-            "%cAppState.js line:111 item.id, id",
-            "color: white; background-color: #007acc;",
-            item.id,
-            id
-          )
           if (item.id === id) {
             item.isCompleted = !item.isCompleted
           }
@@ -132,12 +148,6 @@ export default class AppState extends Component {
     } else {
       this.setState({
         travelList: travelList.map(item => {
-          console.log(
-            "%cAppState.js line:126 item.id, id",
-            "color: white; background-color: #26bfa5;",
-            item.id,
-            id
-          )
           if (item.id === id) {
             item.isCompleted = !item.isCompleted
           }
@@ -246,12 +256,6 @@ export default class AppState extends Component {
         />
       ))
       .sort((a, b) => (a.props.isCompleted < b.props.isCompleted ? -1 : 1))
-
-    console.log(
-      "%cAppState.js line:194 this.state.listName",
-      "color: white; background-color: #007acc;",
-      this.state.listName
-    )
 
     return (
       <React.Fragment>
