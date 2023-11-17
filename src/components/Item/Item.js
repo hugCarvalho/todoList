@@ -1,57 +1,62 @@
-import React from "react";
-import "./Item.scss";
-import PropTypes from "prop-types";
+import React from 'react'
+import './Item.scss'
+import PropTypes from 'prop-types'
+import Priority from '../Priority'
 
-export default function Item({
-  todoTitle,
-  toggleTodoCompleted,
-  isCompleted,
-  editTodo,
-  removeTodo,
-}) {
+export default function Item({ todoTitle, toggleTodoCompleted, isCompleted, editTodo, removeTodo }) {
   const styleCompleted = () =>
     isCompleted
       ? {
-          color: "gray",
-          textDecoration: "line-through",
+          color: 'gray',
+          textDecoration: 'line-through',
         }
-      : null;
+      : null
 
   return (
-    <li className="todo-item" onClick={toggleTodoCompleted}>
-      <div className="wrapper__checkbox-title">
+    <li
+      className='todo-item'
+      onClick={toggleTodoCompleted}>
+      <div className='wrapper__checkbox-title'>
         <label>
           {/* Check/Uncheck box */}
-          <input
+          {/* <input
             type="checkbox"
             onChange={toggleTodoCompleted}
             checked={isCompleted ? true : false}
-          />
+          /> */}
           {/* Render Todo completed or not */}
           <span style={styleCompleted()}>{todoTitle}</span>
         </label>
       </div>
 
-      <div className="wrapper__edit-delete">
+      <Priority />
+
+      <div className='wrapper__edit-delete'>
         {/* Edit */}
-        <span onClick={(e) => {
-          e.stopPropagation()
-          editTodo()
-        }}>
-          <button title="edit" className="btn__edit">
-            <i className="fas fa-edit"></i>
+        <span
+          onClick={(e) => {
+            e.stopPropagation()
+            editTodo()
+          }}>
+          <button
+            title='edit'
+            className='btn__edit'>
+            <i className='fas fa-edit'></i>
           </button>
         </span>
         {/* Delete */}
-        <button onClick={(e) => {
-          e.stopPropagation()
-          removeTodo()
-        }} title="delete" className="btn__delete">
-          <i className="fas fa-trash"></i>
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            removeTodo()
+          }}
+          title='delete'
+          className='btn__delete'>
+          <i className='fas fa-trash'></i>
         </button>
       </div>
     </li>
-  );
+  )
 }
 
 Item.propTypes = {
@@ -60,4 +65,4 @@ Item.propTypes = {
   isCompleted: PropTypes.bool,
   editTodo: PropTypes.func,
   removeTodo: PropTypes.func,
-};
+}
