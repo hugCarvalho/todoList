@@ -5,11 +5,9 @@ import Inputs from '../components/Inputs/Inputs'
 import Output from '../components/Output/Output'
 import ShowModal from '../components/Modal/ShowModal'
 import Header from '../components/Header/Header'
-import { hardcodedTravelData } from '../data/travelData'
 
 export default class AppState extends Component {
   state = {
-    listName: 'todo',
     todoList: [],
     addTodoText: '',
     searchFieldValue: '',
@@ -39,6 +37,7 @@ export default class AppState extends Component {
   componentDidUpdate() {
     const { todoList, showAllTodos } = this.state
 
+    console.log(todoList)
     const todosData = JSON.stringify(todoList)
     localStorage.setItem('todosData', todosData)
     localStorage.setItem('showAllTodos', JSON.stringify(showAllTodos))
@@ -63,10 +62,14 @@ export default class AppState extends Component {
       id: uuid(),
       title: `${validText[0].toUpperCase() + validText.substring(1)}`,
       isCompleted: false,
+      priority: 'medium',
     }
 
+    const todos = [...todoList, newTodo]
+    this.sortTodos(todos)
+
     this.setState({
-      todoList: [...todoList, newTodo],
+      todoList: todos,
       addTodoText: '',
       isEditing: false,
     })
@@ -118,6 +121,31 @@ export default class AppState extends Component {
     this.focusAddTodoField()
   }
 
+  setPriority = (id, priority) => {
+    let updatedTasks = this.state.todoList.map((task) => {
+      if (task.id === id) {
+        task.priority = priority
+      }
+      return task
+    })
+
+    this.sortTodos(updatedTasks)
+    this.setState({
+      todoList: updatedTasks,
+    })
+  }
+  sortTodos = (tasks) => {
+    tasks.sort((a, b) => {
+      const priorityOrder = {
+        high: 1,
+        medium: 2,
+        low: 3,
+      }
+
+      return priorityOrder[a.priority] - priorityOrder[b.priority]
+    })
+  }
+
   //Remove Todos
   removeTodo = (id) =>
     this.setState({
@@ -153,6 +181,9 @@ export default class AppState extends Component {
     const listTodo = todoList
       .map((item) => (
         <Item
+          id={item.id}
+          priority={item.priority}
+          setPriority={this.setPriority}
           key={item.id}
           todoTitle={item.title}
           isCompleted={item.isCompleted}

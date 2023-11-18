@@ -1,9 +1,18 @@
 import React from 'react'
 import './Item.scss'
 import PropTypes from 'prop-types'
-import Priority from '../Priority'
+import PriorityTag from '../Priority'
 
-export default function Item({ todoTitle, toggleTodoCompleted, isCompleted, editTodo, removeTodo }) {
+export default function Item({
+  id,
+  priority,
+  setPriority,
+  todoTitle,
+  toggleTodoCompleted,
+  isCompleted,
+  editTodo,
+  removeTodo,
+}) {
   const styleCompleted = () =>
     isCompleted
       ? {
@@ -13,10 +22,10 @@ export default function Item({ todoTitle, toggleTodoCompleted, isCompleted, edit
       : null
 
   return (
-    <li
-      className='todo-item'
-      onClick={toggleTodoCompleted}>
-      <div className='wrapper__checkbox-title'>
+    <li className='todo-item'>
+      <div
+        className='wrapper__checkbox-title'
+        onClick={toggleTodoCompleted}>
         <label>
           {/* Check/Uncheck box */}
           {/* <input
@@ -29,7 +38,11 @@ export default function Item({ todoTitle, toggleTodoCompleted, isCompleted, edit
         </label>
       </div>
 
-      <Priority />
+      <PriorityTag
+        taskId={id}
+        priority={priority}
+        setPriority={setPriority}
+      />
 
       <div className='wrapper__edit-delete'>
         {/* Edit */}
@@ -60,6 +73,7 @@ export default function Item({ todoTitle, toggleTodoCompleted, isCompleted, edit
 }
 
 Item.propTypes = {
+  todoList: PropTypes.array,
   todoTitle: PropTypes.string,
   toggleTodoCompleted: PropTypes.func,
   isCompleted: PropTypes.bool,

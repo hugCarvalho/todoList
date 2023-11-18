@@ -33,13 +33,11 @@ const PriorityLabel = styled.div`
   }
 `
 
-function Priority() {
-  const [priority, setPriority] = React.useState('medium')
-
+function PriorityTag({ priority, setPriority, taskId }) {
   const handleOnClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    setPriority(e.target.id)
+    setPriority(taskId, e.target.id)
   }
 
   return (
@@ -66,4 +64,4 @@ function Priority() {
   )
 }
 
-export default Priority
+export default PriorityTag

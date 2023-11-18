@@ -1,18 +1,11 @@
-import React from "react"
-import "./Header.scss"
+import React from 'react'
+import './Header.scss'
 
-const listType = {
-  todo: "Todo List",
-  travel: "Travel List",
-}
-
-export default function Header({ listName, setListName }) {
+export default function Header() {
   return (
     <>
       <header>
-        <button onClick={() => setListName("todo")}>Todo</button>
-        <h1>{listType[listName]}</h1>
-        <button onClick={() => setListName("travel")}>Travel</button>
+        <h1>Todo List</h1>
       </header>
     </>
   )
