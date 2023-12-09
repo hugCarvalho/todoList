@@ -37,7 +37,6 @@ export default class AppState extends Component {
   componentDidUpdate() {
     const { todoList, showAllTodos } = this.state
 
-    console.log(todoList)
     const todosData = JSON.stringify(todoList)
     localStorage.setItem('todosData', todosData)
     localStorage.setItem('showAllTodos', JSON.stringify(showAllTodos))
