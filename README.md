@@ -4,7 +4,8 @@ Live: https://stoic-fermi-dcf04f.netlify.app/ (<code>ctrl + click</code> to open
 
 ## Project Specifications
 
-- Built using React, styled with SASS(scss), uses local storage
+- Built using React, styled with SASS(scss)
+- Local storage
 - Responsive
 
 ## App functionalities
@@ -15,7 +16,7 @@ Live: https://stoic-fermi-dcf04f.netlify.app/ (<code>ctrl + click</code> to open
 - Check / uncheck All
 - Show / Hide completed
 - Prioritize todos 
-- Save to local storage
+- Save to local storage / Load from ls
 
   **Verification:**
 - check for empty title or empty spaces
